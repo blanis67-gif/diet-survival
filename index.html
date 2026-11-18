@@ -18,7 +18,6 @@
       --muted: #64748b;
       --border: #e2e8f0;
       --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-      --radius: 18px;
     }
 
     * {
@@ -42,7 +41,7 @@
       width: 100%;
       max-width: 1024px;
       min-height: 100vh;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(8px);
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
       display: flex;
@@ -120,14 +119,8 @@
       transition: transform 0.1s, background 0.2s;
     }
 
-    .icon-btn:active {
-      transform: scale(0.96);
-    }
-
-    .icon-btn.danger {
-      background: #7f1d1d;
-      border-color: #991b1b;
-    }
+    .icon-btn:active { transform: scale(0.96); }
+    .icon-btn.danger { background: #7f1d1d; border-color: #991b1b; }
 
     /* 메인 컨테이너 */
     .main-content {
@@ -135,13 +128,13 @@
       padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
-    /* 버튼 공통 (태블릿 터치 최적화) */
+    /* 버튼 공통 */
     .btn {
       border: none;
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 14px 22px;
       font-size: 1.05rem;
       font-weight: 800;
@@ -154,14 +147,8 @@
       min-height: 52px;
     }
 
-    .btn:active:not(:disabled) {
-      transform: scale(0.97);
-    }
-
-    .btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
+    .btn:active:not(:disabled) { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
     .btn-primary {
       background: linear-gradient(135deg, #3b82f6, #2563eb);
@@ -181,16 +168,31 @@
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     }
 
-    .btn-purple {
-      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    .btn-battle {
+      width: 100%;
+      min-height: 60px;
+      font-size: 1.2rem;
+      letter-spacing: -0.3px;
+      border-radius: 18px;
     }
 
     .btn-outline {
       background: #fff;
       color: var(--text);
       border: 2px solid var(--border);
+    }
+
+    /* 독립 대결 액션 박스 */
+    .battle-action-box {
+      background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+      border: 2.5px solid #93c5fd;
+      border-radius: 20px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.12);
     }
 
     /* 오프닝 및 스토리 카드 */
@@ -224,7 +226,7 @@
     }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       color: var(--muted);
       margin: 0 0 20px;
       line-height: 1.6;
@@ -236,10 +238,56 @@
       border-radius: 18px;
       padding: 18px;
       text-align: left;
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       line-height: 1.7;
       margin-bottom: 20px;
     }
+
+    /* 스테이지 2 학교급식 전용 일러스트 카드 */
+    .school-lunch-scene {
+      background: linear-gradient(135deg, #fef9c3 0%, #dcfce7 50%, #e0f2fe 100%);
+      border: 3px solid #86efac;
+      border-radius: 24px;
+      padding: 22px 18px;
+      margin: 14px 0 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+    }
+
+    .lunch-tray-visual {
+      background: #ffffff;
+      border: 4px solid #cbd5e1;
+      border-radius: 22px;
+      padding: 16px;
+      max-width: 540px;
+      margin: 0 auto;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.08);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .tray-slot {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      animation: floatItem 2.8s ease-in-out infinite;
+    }
+
+    .tray-slot:nth-child(2) { animation-delay: 0.3s; }
+    .tray-slot:nth-child(3) { animation-delay: 0.6s; }
+    .tray-slot:nth-child(4) { animation-delay: 0.9s; }
+    .tray-slot.wide { grid-column: span 2; background: #fffbeb; border-color: #fde68a; }
+
+    .tray-slot-emoji { font-size: 2.3rem; line-height: 1.1; }
+    .tray-slot-label { font-size: 0.82rem; font-weight: 800; color: #334155; }
 
     /* 몬스터 대결 배너 */
     .monster-arena {
@@ -253,7 +301,6 @@
       justify-content: space-between;
       gap: 14px;
       box-shadow: var(--shadow);
-      position: relative;
     }
 
     .monster-info {
@@ -274,12 +321,9 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: transform 0.3s;
     }
 
-    .monster-avatar.shake {
-      animation: shake 0.45s ease;
-    }
+    .monster-avatar.shake { animation: shake 0.45s ease; }
 
     .monster-name {
       font-size: 1.15rem;
@@ -304,16 +348,8 @@
       gap: 6px;
     }
 
-    .hp-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #cbd5e1;
-    }
-
-    .hp-bars {
-      display: flex;
-      gap: 8px;
-    }
+    .hp-label { font-size: 0.85rem; font-weight: 700; color: #cbd5e1; }
+    .hp-bars { display: flex; gap: 8px; }
 
     .hp-cell {
       width: 38px;
@@ -348,7 +384,7 @@
 
     .status-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap: 10px;
     }
 
@@ -362,24 +398,11 @@
       gap: 4px;
     }
 
-    .stat-title {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .stat-value {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text);
-    }
+    .stat-title { font-size: 0.8rem; color: var(--muted); font-weight: 700; }
+    .stat-value { font-size: 1.05rem; font-weight: 800; color: var(--text); }
 
     /* 식품군 칩 */
-    .group-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
+    .group-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 
     .group-chip {
       padding: 5px 10px;
@@ -418,7 +441,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      min-height: 64px;
+      min-height: 60px;
       align-items: center;
     }
 
@@ -433,12 +456,9 @@
       font-weight: 700;
       font-size: 0.95rem;
       cursor: pointer;
-      transition: transform 0.1s;
     }
 
-    .tray-item:active {
-      transform: scale(0.95);
-    }
+    .tray-item:active { transform: scale(0.95); }
 
     .tray-remove {
       background: #ef4444;
@@ -453,10 +473,36 @@
       font-weight: 900;
     }
 
+    /* 식품군 필터 탭 */
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .filter-tab {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 2px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .filter-tab.active {
+      background: #1e293b;
+      color: #fff;
+      border-color: #1e293b;
+    }
+
     /* 음식 선택 그리드 */
     .food-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
       gap: 12px;
     }
 
@@ -470,19 +516,10 @@
       justify-content: space-between;
       gap: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      position: relative;
-      transition: border-color 0.2s, transform 0.1s;
     }
 
-    .food-card.sold-out {
-      opacity: 0.45;
-      background: #f1f5f9;
-    }
-
-    .food-card.in-tray {
-      border-color: #3b82f6;
-      background: #f0f9ff;
-    }
+    .food-card.sold-out { opacity: 0.45; background: #f1f5f9; }
+    .food-card.in-tray { border-color: #3b82f6; background: #f0f9ff; }
 
     .food-top {
       display: flex;
@@ -490,17 +527,14 @@
       align-items: flex-start;
     }
 
-    .food-emoji {
-      font-size: 2.2rem;
-      line-height: 1;
-    }
+    .food-emoji { font-size: 2.2rem; line-height: 1; }
 
     .inspect-btn {
       background: #f1f5f9;
       border: 1.5px solid #cbd5e1;
       border-radius: 10px;
       padding: 5px 8px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 800;
       cursor: pointer;
       color: #334155;
@@ -512,11 +546,7 @@
       color: #166534;
     }
 
-    .food-name {
-      font-weight: 800;
-      font-size: 1rem;
-      color: #0f172a;
-    }
+    .food-name { font-weight: 800; font-size: 0.98rem; color: #0f172a; }
 
     .food-meta {
       font-size: 0.78rem;
@@ -524,6 +554,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 2px;
     }
 
     .food-add-btn {
@@ -562,10 +593,7 @@
       transition: transform 0.15s, border-color 0.2s;
     }
 
-    .path-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-3px);
-    }
+    .path-card:hover { border-color: var(--primary); transform: translateY(-3px); }
 
     /* 모달 팝업 */
     .modal-backdrop {
@@ -583,7 +611,7 @@
     .modal-box {
       background: #fff;
       border-radius: 24px;
-      max-width: 500px;
+      max-width: 520px;
       width: 100%;
       padding: 24px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
@@ -606,10 +634,7 @@
       font-size: 0.95rem;
     }
 
-    .nutrition-table th {
-      background: #f8fafc;
-      width: 45%;
-    }
+    .nutrition-table th { background: #f8fafc; width: 45%; }
 
     /* 엔딩 및 실천 다짐 */
     .pledge-grid {
@@ -628,7 +653,10 @@
       font-size: 0.95rem;
       cursor: pointer;
       text-align: left;
+      transition: background 0.15s, border-color 0.15s;
     }
+
+    .pledge-btn:hover { border-color: #3b82f6; background: #f8fafc; }
 
     .pledge-btn.selected {
       border-color: #10b981;
@@ -636,7 +664,6 @@
       color: #065f46;
     }
 
-    /* 폭죽 캔버스 */
     #fireworksCanvas {
       position: fixed;
       inset: 0;
@@ -644,7 +671,6 @@
       z-index: 90;
     }
 
-    /* 하단 학습용 안내 문구 */
     .disclaimer-footer {
       text-align: center;
       font-size: 0.78rem;
@@ -659,6 +685,11 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes floatItem {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       20% { transform: translateX(-8px) rotate(-4deg); }
@@ -670,13 +701,13 @@
     @media (max-width: 600px) {
       .hero-title { font-size: 1.45rem; }
       .food-grid { grid-template-columns: repeat(2, 1fr); }
+      .lunch-tray-visual { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
   <canvas id="fireworksCanvas"></canvas>
   <div id="app">
-    <!-- 상단 바 -->
     <header class="topbar">
       <div class="topbar-title">
         <span>🍱 중1 식생활 서바이벌</span>
@@ -689,132 +720,155 @@
       </div>
     </header>
 
-    <!-- 메인 동적 화면 -->
     <main class="main-content" id="mainContainer"></main>
 
-    <!-- 하단 교육용 고지 -->
     <footer class="disclaimer-footer">
       ※ 본 게임의 영양 수치는 초등학교 6학년 식생활 학습을 돕기 위한 <strong>교육용 간이 지표</strong>이며, 특정 음식을 나쁜 음식으로 단정하지 않고 전체 식단의 균형을 배우는 데 목적이 있습니다.
     </footer>
   </div>
 
-  <!-- 공용 모달 영역 -->
   <div id="modalRoot"></div>
 
   <script>
     /**
      * =========================================================================
      * [교사용 설정 영역: GAME_CONFIG]
-     * 비개발자 선생님도 아래의 음식 목록, 가격, 이벤트 문구, 몬스터 대사를
-     * 자유롭게 수정하여 수업에 활용하실 수 있습니다.
+     * 비개발자 선생님도 아래 음식, 가격, 이벤트, 퀴즈, 몬스터 대사를 수정할 수 있습니다.
      * =========================================================================
      */
     const GAME_CONFIG = {
-      // 1. 식품군 정의 (6종)
       foodGroups: {
         grain: { id: 'grain', name: '곡류·주식', emoji: '🍚' },
-        protein: { id: 'protein', name: '단백질 식품', emoji: '🥚' },
+        protein: { id: 'protein', name: '단백질', emoji: '🥚' },
         veggie: { id: 'veggie', name: '채소류', emoji: '🥬' },
         fruit: { id: 'fruit', name: '과일류', emoji: '🍎' },
         dairy: { id: 'dairy', name: '우유·유제품', emoji: '🥛' },
         snack: { id: 'snack', name: '음료·간식', emoji: '🥤' }
       },
 
-      // 2. 몬스터 정보 (기본 HP 3칸)
       monsters: {
         breakfast: {
           name: '아침잠 몬스터',
           emoji: '😴',
           maxHp: 3,
           taunt: '"조금만 더 자! 아침밥은 그냥 건너뛰어!"',
-          hurtQuote: '"으악! 아침부터 든든하게 먹다니 힘이 빠진다!"',
-          defeatQuote: '"크윽... 아침밥 에너지를 이길 수 없어!"',
-          badgeId: 'breakfast_keeper'
+          defeatQuote: '"크윽... 아침밥 에너지를 이길 수 없어!"'
         },
         home: {
           name: '균형 실종 몬스터',
-          emoji: '偏',
+          emoji: '🍽️',
           maxHp: 3,
           taunt: '"반찬은 좋아하는 것 하나면 충분해! 채소는 빼!"',
-          hurtQuote: '"억! 여러 식품군이 힘을 합치니 내 편식 마법이 깨진다!"',
-          defeatQuote: '"알록달록 균형 식판 앞에 무릎을 꿇는다..."',
-          badgeId: 'balance_master'
+          defeatQuote: '"알록달록 균형 식판 앞에 무릎을 꿇는다..."'
         },
         store: {
           name: '달콤짭짤 몬스터',
           emoji: '😈',
           maxHp: 3,
           taunt: '"영양표시는 볼 필요 없어! 달고 짠 게 최고야!"',
-          hurtQuote: '"아니, 뒷면의 당류와 나트륨 표시를 확인하다니?!"',
-          defeatQuote: '"예산 안에서 영양까지 챙기는 편의점 탐정에게 졌다!"',
-          badgeId: 'nutrition_detective'
+          defeatQuote: '"예산 안에서 영양까지 챙기는 편의점 탐정에게 졌다!"'
         }
       },
 
-      // 3. 배지 정의 (3종)
       badges: {
         breakfast_keeper: { id: 'breakfast_keeper', name: '아침밥 지킴이', icon: '🌅' },
         balance_master: { id: 'balance_master', name: '균형 식판 달인', icon: '🥗' },
         nutrition_detective: { id: 'nutrition_detective', name: '영양 탐정', icon: '🔍' }
       },
 
-      // 4. STAGE 1: 아침밥 챌린지 음식 목록 (교육용 간이 지표)
+      // 1. STAGE 1 : 아침밥 챌린지 음식 목록 (26종)
       breakfastFoods: [
-        { id: 'b_rice', name: '따뜻한 밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '뇌에 에너지를 공급하는 든든한 주식!' },
-        { id: 'b_bread', name: '식빵 1장', emoji: '🍞', group: 'grain', kcal: 150, protein: '보통', sugar: '보통', sodium: '보통', tip: '달걀이나 우유와 함께 먹으면 더 좋아요.' },
-        { id: 'b_cereal', name: '시리얼', emoji: '🥣', group: 'grain', kcal: 160, protein: '낮음', sugar: '높음', sodium: '보통', tip: '우유·과일을 곁들이면 영양 균형이 올라가요.' },
-        { id: 'b_egg', name: '삶은 달걀', emoji: '🥚', group: 'protein', kcal: 75, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '아침에 간편하게 챙기는 완전 단백질!' },
-        { id: 'b_tofu', name: '부드러운 두부', emoji: '🧊', group: 'protein', kcal: 85, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '소화가 잘 되는 식물성 단백질 식품!' },
-        { id: 'b_milk', name: '흰 우유', emoji: '🥛', group: 'dairy', kcal: 125, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '성장에 꼭 필요한 칼슘과 단백질 공급원!' },
-        { id: 'b_banana', name: '바나나', emoji: '🍌', group: 'fruit', kcal: 90, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '바쁜 아침 껍질만 까서 바로 먹는 에너지 과일!' },
-        { id: 'b_apple', name: '사과 조각', emoji: '🍎', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '아침 사과는 비타민과 식이섬유가 풍부해요.' },
-        { id: 'b_tomato', name: '방울토마토', emoji: '🍅', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '씻어서 바로 먹을 수 있는 간편 채소!' },
-        { id: 'b_seaweed', name: '구운 김', emoji: '🌿', group: 'veggie', kcal: 20, protein: '보통', sugar: '낮음', sodium: '보통', tip: '밥과 함께 먹으면 미네랄을 보충해 줘요.' },
-        { id: 'b_donut', name: '초코 도넛', emoji: '🍩', group: 'snack', kcal: 280, protein: '낮음', sugar: '매우 높음', sodium: '보통', tip: '당류가 높아요. 우유·과일과 조합해 보세요!' },
-        { id: 'b_soda', name: '탄산음료', emoji: '🥤', group: 'snack', kcal: 110, protein: '낮음', sugar: '매우 높음', sodium: '낮음', tip: '빈속에 탄산음료만 마시면 금방 배가 고파져요.' },
-        { id: 'b_water', name: '시원한 물', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '잠자는 동안 부족해진 수분을 깨워줘요!' }
+        { id: 'b_rice', name: '따뜻한 흰밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '뇌에 포도당을 공급해 1교시부터 집중력을 높여줘요!' },
+        { id: 'b_brownrice', name: '현미잡곡밥', emoji: '🌾', group: 'grain', kcal: 205, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '식이섬유와 비타민 B군이 풍부한 든든한 주식!' },
+        { id: 'b_bread', name: '통밀 식빵', emoji: '🍞', group: 'grain', kcal: 150, protein: '보통', sugar: '보통', sodium: '보통', tip: '달걀이나 치즈, 우유와 곁들이면 영양 균형 UP!' },
+        { id: 'b_roll', name: '모닝빵(2개)', emoji: '🥐', group: 'grain', kcal: 170, protein: '보통', sugar: '보통', sodium: '보통', tip: '바쁜 아침 가볍게 먹기 좋은 빵이에요.' },
+        { id: 'b_sweetpotato', name: '찐고구마', emoji: '🍠', group: 'grain', kcal: 140, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '포만감이 오래가고 식이섬유가 풍부한 자연 간식!' },
+        { id: 'b_oatmeal', name: '오트밀 죽', emoji: '🥣', group: 'grain', kcal: 155, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '따뜻하게 속을 편안하게 깨워주는 곡물 식사!' },
+        { id: 'b_cereal', name: '콘플레이크 시리얼', emoji: '🌽', group: 'grain', kcal: 160, protein: '낮음', sugar: '높음', sodium: '보통', tip: '우유와 과일을 함께 먹으면 부족한 단백질을 채워요.' },
+        { id: 'b_egg', name: '삶은 달걀', emoji: '🥚', group: 'protein', kcal: 75, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '아침에 간편하게 챙기는 완전 단백질 식품!' },
+        { id: 'b_scramble', name: '스크램블 에그', emoji: '🍳', group: 'protein', kcal: 110, protein: '높음', sugar: '낮음', sodium: '보통', tip: '부드러워서 아침 입맛이 없을 때도 먹기 좋아요.' },
+        { id: 'b_tofu', name: '연두부(간장약간)', emoji: '🧊', group: 'protein', kcal: 85, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '소화가 잘 되는 식물성 단백질!' },
+        { id: 'b_sausage', name: '닭가슴살 소시지', emoji: '🌭', group: 'protein', kcal: 115, protein: '높음', sugar: '낮음', sodium: '보통', tip: '일반 소시지보다 지방은 적고 단백질이 풍부해요.' },
+        { id: 'b_natto', name: '고소한 낫또', emoji: '🫘', group: 'protein', kcal: 100, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '콩 발효 식품으로 단백질과 장 건강에 도움을 줘요.' },
+        { id: 'b_milk', name: '고칼슘 흰우유', emoji: '🥛', group: 'dairy', kcal: 125, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '성장에 꼭 필요한 칼슘과 단백질 공급원!' },
+        { id: 'b_yogurt', name: '플레인 요거트', emoji: '🍨', group: 'dairy', kcal: 95, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '과일이나 시리얼과 함께 먹으면 찰떡궁합!' },
+        { id: 'b_cheese', name: '슬라이스 치즈', emoji: '🧀', group: 'dairy', kcal: 60, protein: '보통', sugar: '낮음', sodium: '보통', tip: '식빵에 얹어 먹으면 간편하게 칼슘을 보충해요.' },
+        { id: 'b_soymilk', name: '담백한 두유', emoji: '🧃', group: 'dairy', kcal: 115, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '우유가 없을 때 훌륭한 단백질·칼슘 대안!' },
+        { id: 'b_banana', name: '달콤 바나나', emoji: '🍌', group: 'fruit', kcal: 90, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '껍질만 까서 바로 먹는 빠른 에너지 과일!' },
+        { id: 'b_apple', name: '아삭 사과 조각', emoji: '🍎', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '아침 사과는 비타민과 식이섬유가 풍부해요.' },
+        { id: 'b_mandarin', name: '새콤달콤 귤(2개)', emoji: '🍊', group: 'fruit', kcal: 65, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '비타민 C가 가득해 아침 피로를 날려줘요.' },
+        { id: 'b_kiwi', name: '그린 키위', emoji: '🥝', group: 'fruit', kcal: 55, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '영양소 밀도가 높은 상큼한 아침 과일!' },
+        { id: 'b_tomato', name: '방울토마토', emoji: '🍅', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '씻어서 한 입에 쏙 먹는 간편 채소!' },
+        { id: 'b_cucumber', name: '오이 스틱', emoji: '🥒', group: 'veggie', kcal: 18, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '아삭한 식감과 수분이 풍부한 채소 스틱!' },
+        { id: 'b_seaweed', name: '구운 조미김', emoji: '🌿', group: 'veggie', kcal: 20, protein: '보통', sugar: '낮음', sodium: '보통', tip: '밥과 함께 먹으면 미네랄과 요오드를 챙겨요.' },
+        { id: 'b_donut', name: '초코 도넛', emoji: '🍩', group: 'snack', kcal: 280, protein: '낮음', sugar: '매우 높음', sodium: '보통', tip: '당류가 높아요. 우유·과일과 조합해 균형을 맞춰보세요!' },
+        { id: 'b_chocomilk', name: '달콤 초코우유', emoji: '🍫', group: 'snack', kcal: 165, protein: '보통', sugar: '매우 높음', sodium: '낮음', tip: '흰 우유보다 당류가 높으니 다른 단 음식은 줄여요.' },
+        { id: 'b_water', name: '시원한 생수', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '밤새 부족해진 수분을 채워주는 최고의 습관!' }
       ],
 
-      // STAGE 1 돌발 이벤트
+      // STAGE 1 돌발 이벤트 (10가지)
       breakfastEvents: [
-        { id: 'ev_b1', text: '⚠️ 돌발 상황: 어제 밤에 다 먹어서 "달걀이 다 떨어졌습니다!" (삶은 달걀 품절)', soldOutIds: ['b_egg'] },
-        { id: 'ev_b2', text: '⚠️ 돌발 상황: 냉장고를 열어보니 "우유가 없습니다!" (흰 우유 품절)', soldOutIds: ['b_milk'] },
-        { id: 'ev_b3', text: '⏰ 돌발 상황: "등교 시간이 10분밖에 남지 않았습니다!" 간편하게 조합해 보세요!', soldOutIds: [] },
-        { id: 'ev_b4', text: '✨ 행운 이벤트: "냉장고에 바나나가 남아 있습니다!" 바나나를 활용해 보세요!', soldOutIds: [] }
+        { id: 'ev_b1', text: '⚠️ 돌발 상황 1: 어제 밤에 다 먹어서 "삶은 달걀이 다 떨어졌습니다!" (삶은 달걀 품절)', soldOutIds: ['b_egg'] },
+        { id: 'ev_b2', text: '⚠️ 돌발 상황 2: 냉장고를 열어보니 "흰 우유가 없습니다!" 두유나 요거트로 대체해 보세요!', soldOutIds: ['b_milk'] },
+        { id: 'ev_b3', text: '⏰ 돌발 상황 3: "등교 시간까지 딱 10분 남았습니다!" 불을 쓰지 않는 간편 조합을 골라요!', soldOutIds: ['b_rice', 'b_scramble'] },
+        { id: 'ev_b4', text: '✨ 행운 상황 4: "식탁 위에 바나나와 사과가 넉넉합니다!" 과일을 꼭 챙겨 먹어요!', soldOutIds: [] },
+        { id: 'ev_b5', text: '⚠️ 돌발 상황 5: "식빵과 모닝빵이 모두 떨어졌습니다!" 밥이나 고구마, 오트밀을 활용해 보세요!', soldOutIds: ['b_bread', 'b_roll'] },
+        { id: 'ev_b6', text: '🥶 돌발 상황 6: "날씨가 쌀쌀해 따뜻한 음식이 필요합니다!" 밥·오트밀·찐고구마 등으로 속을 데워요!', soldOutIds: ['b_cereal'] },
+        { id: 'ev_b7', text: '⚠️ 돌발 상황 7: "과일 바구니가 비었습니다!" (바나나·사과 품절) 방울토마토나 오이 등 채소를 찾아보세요!', soldOutIds: ['b_banana', 'b_apple'] },
+        { id: 'ev_b8', text: '🏃‍♂️ 돌발 상황 8: "오늘 1교시가 체육 시간입니다!" 에너지(곡류)와 단백질을 든든히 조합하세요!', soldOutIds: [] },
+        { id: 'ev_b9', text: '⚠️ 돌발 상황 9: "전기밥솥 밥이 아직 안 됐습니다!" (흰밥·현미밥 품절) 다른 곡류를 선택하세요!', soldOutIds: ['b_rice', 'b_brownrice'] },
+        { id: 'ev_b10', text: '😴 몬스터 유혹 10: "아침잠 몬스터가 초코도넛만 먹으라고 유혹합니다!" 건강한 식품군과 함께 물리치세요!', soldOutIds: [] }
       ],
 
-      // 5. STAGE 3-A: 집밥 챌린지 음식 목록
+      // 2. STAGE 3-A : 집밥 챌린지 음식 목록 (26종)
       homeFoods: [
-        { id: 'h_whiterice', name: '흰쌀밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '우리 식탁의 기본 에너지원!' },
-        { id: 'h_multigrain', name: '잡곡밥', emoji: '🌾', group: 'grain', kcal: 205, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '식이섬유와 비타민이 풍부한 건강 밥!' },
-        { id: 'h_doenjang', name: '된장국', emoji: '🍲', group: 'veggie', kcal: 65, protein: '보통', sugar: '낮음', sodium: '보통', tip: '건더기 위주로 먹으면 채소와 단백질을 챙겨요.' },
-        { id: 'h_miyeok', name: '미역국', emoji: '🥣', group: 'veggie', kcal: 55, protein: '낮음', sugar: '낮음', sodium: '보통', tip: '미네랄이 풍부한 따뜻한 국!' },
-        { id: 'h_eggroll', name: '달걀말이', emoji: '🍳', group: 'protein', kcal: 120, protein: '높음', sugar: '낮음', sodium: '보통', tip: '채소를 다져 넣으면 영양 만점 반찬!' },
-        { id: 'h_fish', name: '고등어구이', emoji: '🐟', group: 'protein', kcal: 180, protein: '높음', sugar: '낮음', sodium: '보통', tip: '두뇌 발달에 좋은 오메가-3와 단백질!' },
-        { id: 'h_tofu', name: '두부구이', emoji: '🟨', group: 'protein', kcal: 110, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '담백하고 고소한 식물성 단백질 반찬!' },
-        { id: 'h_bulgogi', name: '소불고기', emoji: '🥩', group: 'protein', kcal: 220, protein: '높음', sugar: '보통', sodium: '보통', tip: '성장기 근육과 혈액 생성을 돕는 단백질!' },
-        { id: 'h_spinach', name: '시금치나물', emoji: '🥬', group: 'veggie', kcal: 35, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '눈과 뼈 건강에 좋은 초록빛 채소!' },
-        { id: 'h_cucumber', name: '오이무침', emoji: '🥒', group: 'veggie', kcal: 30, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '아삭아삭 수분과 비타민을 채워주는 반찬!' },
-        { id: 'h_kimchi', name: '배추김치', emoji: '🌶️', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '높음', tip: '발효 채소지만 짠맛이 있으니 적당량 먹어요.' },
-        { id: 'h_ham', name: '구운 햄', emoji: '🥓', group: 'protein', kcal: 150, protein: '보통', sugar: '낮음', sodium: '높음', tip: '가공육은 나트륨이 높으니 채소 반찬과 곁들여요!' },
+        { id: 'h_whiterice', name: '따뜻한 흰쌀밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '우리 식탁의 기본 에너지원!' },
+        { id: 'h_multigrain', name: '건강 잡곡밥', emoji: '🌾', group: 'grain', kcal: 205, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '현미·보리·콩이 들어간 식이섬유 가득 밥!' },
+        { id: 'h_barleyrice', name: '구수한 보리밥', emoji: '🥣', group: 'grain', kcal: 200, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '소화를 돕고 포만감을 주는 곡류!' },
+        { id: 'h_friedrice', name: '채소 볶음밥', emoji: '🍛', group: 'grain', kcal: 290, protein: '보통', sugar: '낮음', sodium: '보통', tip: '밥과 다진 채소가 어우러진 한 그릇 주식!' },
+        { id: 'h_eggroll', name: '채소 달걀말이', emoji: '🍳', group: 'protein', kcal: 120, protein: '높음', sugar: '낮음', sodium: '보통', tip: '당근·파를 넣어 영양을 더한 인기 단백질 반찬!' },
+        { id: 'h_fish', name: '고등어구이', emoji: '🐟', group: 'protein', kcal: 180, protein: '높음', sugar: '낮음', sodium: '보통', tip: '두뇌 발달에 좋은 오메가-3와 단백질이 풍부해요.' },
+        { id: 'h_tofu', name: '들기름 두부구이', emoji: '🟨', group: 'protein', kcal: 110, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '담백하고 고소한 식물성 단백질 반찬!' },
+        { id: 'h_bulgogi', name: '소불고기', emoji: '🥩', group: 'protein', kcal: 220, protein: '높음', sugar: '보통', sodium: '보통', tip: '성장기 근육과 혈액 생성을 돕는 철분·단백질!' },
+        { id: 'h_pork', name: '채소 제육볶음', emoji: '🍖', group: 'protein', kcal: 240, protein: '높음', sugar: '보통', sodium: '보통', tip: '양파·당근과 함께 볶아 쌈채소와 먹으면 최고!' },
+        { id: 'h_chicken', name: '간장 닭봉조림', emoji: '🍗', group: 'protein', kcal: 210, protein: '높음', sugar: '보통', sodium: '보통', tip: '기름에 튀기지 않고 조려 담백한 단백질 반찬!' },
+        { id: 'h_anchovy', name: '견과류 멸치볶음', emoji: '🐠', group: 'protein', kcal: 85, protein: '높음', sugar: '보통', sodium: '보통', tip: '뼈 튼튼 칼슘과 단백질을 동시에 채워줘요.' },
+        { id: 'h_blackbean', name: '달콤 콩자반', emoji: '🫘', group: 'protein', kcal: 90, protein: '높음', sugar: '보통', sodium: '보통', tip: '식물성 단백질의 대표 밑반찬!' },
+        { id: 'h_ham', name: '구운 스팸/햄', emoji: '🥓', group: 'protein', kcal: 165, protein: '보통', sugar: '낮음', sodium: '높음', tip: '가공육은 나트륨이 높으니 채소 반찬과 곁들여요!' },
         { id: 'h_sausage', name: '비엔나소시지', emoji: '🌭', group: 'protein', kcal: 165, protein: '보통', sugar: '낮음', sodium: '높음', tip: '짜기 쉬우므로 다른 담백한 반찬과 균형을 맞춰요.' },
-        { id: 'h_fruit', name: '제철 과일(귤/사과)', emoji: '🍊', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '식후 비타민을 채워주는 상큼한 과일!' },
-        { id: 'h_water', name: '생수', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '식사와 함께 가장 좋은 수분 섭취!' }
+        { id: 'h_doenjang', name: '두부 된장국', emoji: '🍲', group: 'veggie', kcal: 65, protein: '보통', sugar: '낮음', sodium: '보통', tip: '국물보다 채소·두부 건더기 위주로 먹어요!' },
+        { id: 'h_miyeok', name: '소고기 미역국', emoji: '🥣', group: 'veggie', kcal: 60, protein: '보통', sugar: '낮음', sodium: '보통', tip: '미네랄과 식이섬유가 풍부한 따뜻한 국!' },
+        { id: 'h_beansprout', name: '콩나물국', emoji: '🍜', group: 'veggie', kcal: 45, protein: '보통', sugar: '낮음', sodium: '보통', tip: '아삭한 콩나물 건더기가 비타민을 채워줘요.' },
+        { id: 'h_spinach', name: '시금치나물', emoji: '🥬', group: 'veggie', kcal: 35, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '눈과 뼈 건강에 좋은 초록빛 대표 나물!' },
+        { id: 'h_cucumber', name: '아삭 오이무침', emoji: '🥒', group: 'veggie', kcal: 30, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '수분과 비타민을 상큼하게 보충해 주는 반찬!' },
+        { id: 'h_broccoli', name: '브로콜리 숙회', emoji: '🥦', group: 'veggie', kcal: 30, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '비타민 C와 항산화 영양소가 가득한 채소!' },
+        { id: 'h_zucchini', name: '애호박볶음', emoji: '🫑', group: 'veggie', kcal: 45, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '부드럽고 달큰해 반찬으로 먹기 좋은 채소!' },
+        { id: 'h_kimchi', name: '배추김치', emoji: '🌶️', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '높음', tip: '발효 채소지만 짠맛이 있으니 적당량 먹어요.' },
+        { id: 'h_fruit', name: '제철 과일(귤/사과)', emoji: '🍊', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '식후 비타민을 채워주는 상큼한 후식!' },
+        { id: 'h_strawberry', name: '싱싱 딸기·포도', emoji: '🍓', group: 'fruit', kcal: 55, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '피로 회복에 좋은 비타민 과일!' },
+        { id: 'h_milk', name: '고소한 흰우유', emoji: '🥛', group: 'dairy', kcal: 125, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '성장기 뼈 건강을 위한 칼슘 보충!' },
+        { id: 'h_water', name: '시원한 보리차/물', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '식사와 함께 가장 좋은 수분 섭취!' }
       ],
 
       homeEvents: [
-        { id: 'ev_h1', text: '⚠️ 돌발 상황: 시금치나물이 다 떨어져 "채소 반찬이 부족합니다!" 다른 채소를 찾아보세요!', soldOutIds: ['h_spinach'] },
+        { id: 'ev_h1', text: '⚠️ 돌발 상황: 시금치나물이 다 떨어져 "초록 나물 반찬이 부족합니다!" 다른 채소를 찾아보세요!', soldOutIds: ['h_spinach'] },
         { id: 'ev_h2', text: '⚠️ 돌발 상황: 냉동실에 "생선이 품절되었습니다!" 다른 단백질 반찬을 선택하세요!', soldOutIds: ['h_fish'] },
-        { id: 'ev_h3', text: '⏰ 돌발 상황: 학원 숙제가 많아서 "요리 시간이 부족합니다!" 빠르게 차릴 수 있는 조합을 골라요!', soldOutIds: [] },
-        { id: 'ev_h4', text: '⚠️ 돌발 상황: "냉장고 재료가 일부 부족합니다!" (소불고기·시금치 품절)', soldOutIds: ['h_bulgogi', 'h_spinach'] }
+        { id: 'ev_h3', text: '⏰ 돌발 상황: 학원 시간이 임박해 "국을 끓일 시간이 부족합니다!" 국 없이 균형 식판을 완성하세요!', soldOutIds: ['h_doenjang', 'h_miyeok', 'h_beansprout'] },
+        { id: 'ev_h4', text: '⚠️ 돌발 상황: "냉장고 고기 반찬이 떨어졌습니다!" (소불고기·제육볶음 품절) 두부·달걀·생선으로 채워요!', soldOutIds: ['h_bulgogi', 'h_pork'] },
+        { id: 'ev_h5', text: '🧂 건강 미션: "오늘은 나트륨을 줄이는 날!" 김치·햄·소시지 외의 담백한 반찬을 활용해 보세요!', soldOutIds: [] }
       ],
 
-      // 6. STAGE 3-B: 편의점 서바이벌 상품 목록 (예산 7,000원)
+      // 3. STAGE 3-B : 편의점 서바이벌 상품 목록 (26종, 기본 예산 10,000원)
       storeFoods: [
         {
-          id: 's_samgak', name: '참치마요 삼각김밥', emoji: '🍙', group: 'grain', price: 1300,
+          id: 's_samgak', name: '참치마요 삼각김밥', emoji: '🍙', group: 'grain', price: 1400,
           serving: '1개(110g)', kcal: 215, protein: '5g', sugar: '2g', sodium: '420mg',
           sugarLevel: '낮음', sodiumLevel: '보통', tip: '간편한 주식! 채소나 단백질을 추가하면 완벽해요.'
+        },
+        {
+          id: 's_bibim_samgak', name: '전주비빔 삼각김밥', emoji: '🔺', group: 'grain', price: 1400,
+          serving: '1개(115g)', kcal: 195, protein: '4g', sugar: '4g', sodium: '540mg',
+          sugarLevel: '낮음', sodiumLevel: '보통', tip: '참치마요보다 열량은 낮지만 나트륨은 조금 더 높아요!'
         },
         {
           id: 's_gimbap', name: '채소듬뿍 줄김밥', emoji: '🍣', group: 'grain', price: 3200,
@@ -827,39 +881,74 @@
           sugarLevel: '보통', sodiumLevel: '보통', tip: '빵과 달걀이 함께 들어있어요. 우유나 과일과 찰떡!'
         },
         {
+          id: 's_dosirak', name: '균형 잡곡 도시락', emoji: '🍱', group: 'grain', price: 4900,
+          serving: '1팩(380g)', kcal: 560, protein: '22g', sugar: '6g', sodium: '890mg',
+          sugarLevel: '낮음', sodiumLevel: '보통', tip: '밥과 반찬이 함께 있어 한 끼로 든든해요. 과일을 곁들이면 굿!'
+        },
+        {
+          id: 's_cupnoodle', name: '매콤 컵라면(소)', emoji: '🍜', group: 'grain', price: 1200,
+          serving: '1개(65g)', kcal: 290, protein: '5g', sugar: '3g', sodium: '1080mg',
+          sugarLevel: '낮음', sodiumLevel: '매우 높음', tip: '작아도 나트륨 1080mg! 국물을 남기고 채소·달걀과 함께 먹어요.'
+        },
+        {
+          id: 's_tteokbokki', name: '컵 떡볶이', emoji: '🥘', group: 'grain', price: 2500,
+          serving: '1컵(180g)', kcal: 380, protein: '6g', sugar: '18g', sodium: '980mg',
+          sugarLevel: '높음', sodiumLevel: '매우 높음', tip: '당류와 나트륨이 모두 높은 편이니 영양표시를 꼭 비교해 보세요!'
+        },
+        {
           id: 's_egg', name: '감동 삶은달걀(2입)', emoji: '🥚', group: 'protein', price: 2200,
           serving: '2개(100g)', kcal: 140, protein: '12g', sugar: '0g', sodium: '180mg',
           sugarLevel: '낮음', sodiumLevel: '낮음', tip: '편의점 최고의 가성비 단백질 보충템!'
         },
         {
-          id: 's_chicken', name: '훈제 닭가슴살', emoji: '🍗', group: 'protein', price: 2600,
+          id: 's_roasted_egg', name: '맥반석 구운란(2입)', emoji: '🤎', group: 'protein', price: 2100,
+          serving: '2개(95g)', kcal: 135, protein: '12g', sugar: '0g', sodium: '160mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '당류 0g, 나트륨도 낮아 삼각김밥과 찰떡궁합!'
+        },
+        {
+          id: 's_chicken', name: '훈제 닭가슴살', emoji: '🍗', group: 'protein', price: 2800,
           serving: '1팩(100g)', kcal: 125, protein: '23g', sugar: '1g', sodium: '320mg',
-          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '단백질이 매우 풍부하고 나트륨도 비교적 낮아요.'
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '단백질 23g으로 성장기 근육·체력 보충에 최고!'
         },
         {
-          id: 's_salad', name: '싱싱 그린 샐러드', emoji: '🥗', group: 'veggie', price: 2500,
-          serving: '1팩(120g)', kcal: 85, protein: '2g', sugar: '4g', sodium: '150mg',
-          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '편의점에서 부족하기 쉬운 채소를 한 번에 해결!'
-        },
-        {
-          id: 's_cupnoodle', name: '매콤 컵라면(소)', emoji: '🍜', group: 'grain', price: 1150,
-          serving: '1개(65g)', kcal: 290, protein: '5g', sugar: '3g', sodium: '1080mg',
-          sugarLevel: '낮음', sodiumLevel: '매우 높음', tip: '나트륨이 높아요! 국물을 남기고 채소·달걀과 함께 먹어요.'
+          id: 's_tofu_bar', name: '고단백 두부바', emoji: '🧈', group: 'protein', price: 2300,
+          serving: '1개(90g)', kcal: 130, protein: '11g', sugar: '2g', sodium: '260mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '식물성 단백질을 간편하게 챙길 수 있어요.'
         },
         {
           id: 's_sausage', name: '후랑크 소시지바', emoji: '🌭', group: 'protein', price: 2000,
           serving: '1개(80g)', kcal: 210, protein: '9g', sugar: '3g', sodium: '590mg',
-          sugarLevel: '낮음', sodiumLevel: '높음', tip: '나트륨이 다소 높으니 다른 짠 음식과 겹치지 않게 해요.'
+          sugarLevel: '낮음', sodiumLevel: '높음', tip: '닭가슴살·달걀보다 나트륨이 높으니 영양표시를 비교해 보세요!'
         },
         {
-          id: 's_banana', name: '스위트 바나나(2입)', emoji: '🍌', group: 'fruit', price: 1500,
+          id: 's_salad', name: '싱싱 그린 샐러드', emoji: '🥗', group: 'veggie', price: 2600,
+          serving: '1팩(120g)', kcal: 85, protein: '2g', sugar: '4g', sodium: '150mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '편의점에서 부족하기 쉬운 채소를 한 번에 해결!'
+        },
+        {
+          id: 's_chicken_salad', name: '닭가슴살 샐러드', emoji: '🥙', group: 'veggie', price: 3900,
+          serving: '1팩(180g)', kcal: 175, protein: '16g', sugar: '5g', sodium: '290mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '채소와 단백질을 한 번에 해결하는 만능 메뉴!'
+        },
+        {
+          id: 's_tomato_cup', name: '세척 방울토마토컵', emoji: '🍅', group: 'veggie', price: 2200,
+          serving: '1컵(150g)', kcal: 30, protein: '1g', sugar: '4g', sodium: '5mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '나트륨 5mg! 씻어 나와서 바로 먹기 편해요.'
+        },
+        {
+          id: 's_banana', name: '스위트 바나나(2입)', emoji: '🍌', group: 'fruit', price: 1600,
           serving: '2개(180g)', kcal: 160, protein: '2g', sugar: '22g', sodium: '2mg',
           sugarLevel: '보통', sodiumLevel: '낮음', tip: '천연 당분과 칼륨이 풍부한 건강 간식!'
         },
         {
-          id: 's_fruitcup', name: '조각 과일컵', emoji: '🍓', group: 'fruit', price: 2400,
+          id: 's_fruitcup', name: '조각 과일컵', emoji: '🍓', group: 'fruit', price: 2500,
           serving: '1컵(130g)', kcal: 70, protein: '1g', sugar: '13g', sodium: '5mg',
           sugarLevel: '보통', sodiumLevel: '낮음', tip: '비타민 충전! 샐러드가 없을 때 훌륭한 대안이에요.'
+        },
+        {
+          id: 's_apple_pack', name: '세척 사과 슬라이스', emoji: '🍎', group: 'fruit', price: 2000,
+          serving: '1봉(100g)', kcal: 55, protein: '0g', sugar: '11g', sodium: '1mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '껍질째 깎여 나와 아삭하게 비타민을 채워줘요.'
         },
         {
           id: 's_milk', name: '고칼슘 흰우유', emoji: '🥛', group: 'dairy', price: 1200,
@@ -867,42 +956,126 @@
           sugarLevel: '낮음', sodiumLevel: '낮음', tip: '첨가당 없는 흰 우유로 칼슘과 단백질 UP!'
         },
         {
-          id: 's_soymilk', name: '담백한 두유', emoji: '🧃', group: 'dairy', price: 1100,
-          serving: '1팩(190ml)', kcal: 115, protein: '7g', sugar: '6g', sodium: '110mg',
-          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '식물성 단백질이 풍부한 든든한 음료!'
+          id: 's_bananamilk', name: '단지 바나나맛우유', emoji: '🍌', group: 'dairy', price: 1700,
+          serving: '1개(240ml)', kcal: 208, protein: '6g', sugar: '27g', sodium: '110mg',
+          sugarLevel: '매우 높음', sodiumLevel: '낮음', tip: '흰 우유(당류 9g)보다 당류가 3배(27g) 높아요! 꼭 비교해 보세요.'
         },
         {
-          id: 's_water', name: '미네랄 생수', emoji: '💧', group: 'snack', price: 800,
+          id: 's_soymilk', name: '무가당 담백 두유', emoji: '🧃', group: 'dairy', price: 1100,
+          serving: '1팩(190ml)', kcal: 105, protein: '8g', sugar: '2g', sodium: '110mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '당류 2g, 단백질 8g! 식물성 단백질이 풍부해요.'
+        },
+        {
+          id: 's_greekyogurt', name: '플레인 그릭요거트', emoji: '🍨', group: 'dairy', price: 2400,
+          serving: '1개(100g)', kcal: 115, protein: '9g', sugar: '4g', sodium: '55mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '단백질 9g! 과일이나 바나나와 곁들이면 최고!'
+        },
+        {
+          id: 's_stringcheese', name: '스트링 치즈', emoji: '🧀', group: 'dairy', price: 1500,
+          serving: '1개(28g)', kcal: 75, protein: '6g', sugar: '0g', sodium: '170mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '당류 0g으로 칼슘과 단백질을 쏙 챙기는 간식!'
+        },
+        {
+          id: 's_water', name: '미네랄 생수', emoji: '💧', group: 'snack', price: 900,
           serving: '1병(500ml)', kcal: 0, protein: '0g', sugar: '0g', sodium: '0mg',
           sugarLevel: '낮음', sodiumLevel: '낮음', tip: '당류 0g! 가장 건강한 수분 보충 선택!'
         },
         {
-          id: 's_soda', name: '달콤 탄산음료', emoji: '🥤', group: 'snack', price: 1500,
+          id: 's_soda', name: '달콤 탄산음료', emoji: '🥤', group: 'snack', price: 1600,
           serving: '1캔(250ml)', kcal: 112, protein: '0g', sugar: '27g', sodium: '15mg',
           sugarLevel: '매우 높음', sodiumLevel: '낮음', tip: '작은 캔 하나에 당류 27g! 영양표시를 꼭 확인해 보세요.'
+        },
+        {
+          id: 's_chips', name: '짭짤 감자칩', emoji: '🍟', group: 'snack', price: 1700,
+          serving: '1봉(60g)', kcal: 330, protein: '3g', sugar: '2g', sodium: '380mg',
+          sugarLevel: '낮음', sodiumLevel: '높음', tip: '열량과 지방·나트륨이 높아요. 식사 대용으로는 부족해요.'
         }
       ],
 
       storeEvents: [
-        { id: 'ev_s1', text: '⚠️ 돌발 상황: 방금 다 팔려서 "샐러드가 품절되었습니다!" 과일컵 등으로 채워보세요!', soldOutIds: ['s_salad'], budget: 7000 },
-        { id: 'ev_s2', text: '💸 돌발 상황: 주머니를 보니 "1,000원이 부족합니다!" 오늘 예산은 6,000원입니다!', soldOutIds: [], budget: 6000 },
-        { id: 'ev_s3', text: '⚠️ 돌발 상황: "오늘은 삶은 달걀이 모두 팔렸습니다!" 두유나 닭가슴살을 활용해 보세요!', soldOutIds: ['s_egg'], budget: 7000 },
-        { id: 'ev_s4', text: '🔍 탐정 미션: "비슷한 상품 두 개의 영양표시(🔍)를 비교해 보세요!"', soldOutIds: [], budget: 7000 },
-        { id: 'ev_s5', text: '😈 몬스터 유혹: "달콤짭짤 몬스터가 탄산음료를 추천합니다!" 영양표시로 당류를 확인해 물리치세요!', soldOutIds: [], budget: 7000 }
+        { id: 'ev_s1', text: '⚠️ 돌발 상황: 방금 다 팔려서 "그린 샐러드가 품절되었습니다!" 방울토마토컵이나 과일컵을 찾아보세요!', soldOutIds: ['s_salad'], budget: 10000 },
+        { id: 'ev_s2', text: '💸 돌발 상황: 지갑을 보니 "2,000원이 부족합니다!" 오늘 예산은 8,000원입니다!', soldOutIds: [], budget: 8000 },
+        { id: 'ev_s3', text: '⚠️ 돌발 상황: "오늘은 삶은 달걀이 모두 팔렸습니다!" 구운란·닭가슴살·두유를 활용해 보세요!', soldOutIds: ['s_egg'], budget: 10000 },
+        { id: 'ev_s4', text: '🔍 탐정 미션: "흰우유 vs 바나나맛우유"처럼 비슷한 상품 두 개의 영양표시(🔍)를 비교해 보세요!', soldOutIds: [], budget: 10000 },
+        { id: 'ev_s5', text: '😈 몬스터 유혹: "달콤짭짤 몬스터가 컵라면과 탄산음료를 추천합니다!" 영양표시를 확인해 물리치세요!', soldOutIds: [], budget: 10000 }
       ],
 
-      // 7. 집밥 경로 선택 시 보너스 영양 탐정 퀴즈
-      homeDetectiveQuiz: {
-        question: '🔍 [보너스 영양 탐정 미션] 집밥 경로를 선택했군요! 다음 중 가공식품 뒷면의 "영양성분표"를 볼 때 성장기 중학생이 특히 주의 깊게 비교해야 할 두 가지는 무엇일까요?',
-        options: [
-          { text: '1) 포장의 캐릭터 크기와 유통기한 글씨체', correct: false },
-          { text: '2) 당류(설탕 등)와 나트륨(짠맛) 함량', correct: true },
-          { text: '3) 바코드 숫자의 개수와 제조 공장 위치', correct: false }
-        ],
-        explanation: '정답! 영양성분표에서 1회 제공량 기준의 당류, 나트륨, 단백질, 열량을 비교하면 훨씬 건강한 간식과 식사를 고를 수 있습니다.'
-      },
+      // 4. 보너스 영양 탐정 퀴즈 풀 (8종 무작위 출제, 건너뛰기 없음)
+      homeDetectiveQuizzes: [
+        {
+          question: '🔍 [영양 탐정 미션] 가공식품 뒷면의 "영양성분표"를 볼 때, 성장기 중학생이 단맛과 짠맛 과다 섭취를 피하기 위해 꼭 비교해야 할 두 가지는 무엇일까요?',
+          options: [
+            { text: '1) 포장지의 캐릭터 크기와 글씨 색깔', correct: false },
+            { text: '2) 당류(설탕 등)와 나트륨(짠맛) 함량', correct: true },
+            { text: '3) 바코드 숫자의 개수와 공장의 위치', correct: false }
+          ],
+          explanation: '정답! 1회 제공량 기준의 당류와 나트륨 함량을 비교하면 훨씬 건강한 식품을 고를 수 있습니다.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 흰 우유(200ml)의 당류는 약 9g인데, 바나나맛 우유(240ml)의 당류는 약 27g입니다. 이 차이의 가장 큰 이유는 무엇일까요?',
+          options: [
+            { text: '1) 바나나맛 우유에 설탕·액상과당 등 "첨가당"이 많이 들어있기 때문', correct: true },
+            { text: '2) 우유팩의 색깔이 노란색이기 때문', correct: false },
+            { text: '3) 흰 우유에는 칼슘이 전혀 없기 때문', correct: false }
+          ],
+          explanation: '정답! 가공유나 탄산음료에는 맛을 내기 위한 첨가당이 많이 들어있어 영양표시 확인이 꼭 필요합니다.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 컵라면 1개의 나트륨 함량이 약 1,080mg일 때, 나트륨 섭취를 줄이는 가장 실천하기 좋은 방법은 무엇일까요?',
+          options: [
+            { text: '1) 국물까지 한 방울도 남기지 않고 다 마신다', correct: false },
+            { text: '2) 스프를 적당히 넣고 국물을 남기며, 채소·달걀 등을 곁들인다', correct: true },
+            { text: '3) 짠맛을 없애기 위해 탄산음료 2캔을 함께 마신다', correct: false }
+          ],
+          explanation: '정답! 라면 나트륨의 상당 부분은 국물에 녹아 있으므로 국물을 남기고 채소(칼륨)를 곁들이면 좋습니다.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 영양성분표에서 "1일 영양성분 기준치에 대한 비율(%)"이 50%라고 적혀 있다면 어떤 뜻일까요?',
+          options: [
+            { text: '1) 그 음식을 먹으면 하루 권장량의 절반(50%)을 섭취한다는 뜻', correct: true },
+            { text: '2) 가격이 50% 할인된다는 뜻', correct: false },
+            { text: '3) 유통기한이 절반 남았다는 뜻', correct: false }
+          ],
+          explanation: '정답! % 기준치를 보면 한 끼나 간식 하나로 하루 권장 나트륨·당류를 얼마나 먹게 되는지 쉽게 알 수 있어요.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 편의점에서 "전주비빔 삼각김밥"과 "참치마요 삼각김밥"만 먹었을 때 가장 부족하기 쉬운 식품군은 무엇일까요?',
+          options: [
+            { text: '1) 곡류(탄수화물)', correct: false },
+            { text: '2) 채소류 및 과일류(식이섬유·비타민)', correct: true },
+            { text: '3) 나트륨(소금)', correct: false }
+          ],
+          explanation: '정답! 삼각김밥 위주 식사는 채소·과일이 부족하기 쉬우므로 샐러드, 방울토마토, 바나나, 과일컵 등을 곁들이면 좋아요.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 식품 뒷면의 "원재료명"을 읽는 올바른 방법은 무엇일까요?',
+          options: [
+            { text: '1) 맨 앞에 적힌 재료일수록 가장 많이 들어간 재료이다', correct: true },
+            { text: '2) 맨 뒤에 적힌 재료일수록 가장 많이 들어간 재료이다', correct: false },
+            { text: '3) 원재료명은 가나다순으로 적혀 있다', correct: false }
+          ],
+          explanation: '정답! 원재료명은 함량이 많은 순서대로 표기되므로 앞쪽에 설탕·정제당이 적혀 있는지 확인할 수 있어요.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 성장기 중학생에게 "단백질"과 "칼슘"이 특히 중요한 이유는 무엇일까요?',
+          options: [
+            { text: '1) 키가 크고 근육과 뼈가 튼튼하게 자라는 시기이기 때문', correct: true },
+            { text: '2) 잠을 전혀 자지 않아도 되기 때문', correct: false },
+            { text: '3) 물을 마시지 않아도 되기 때문', correct: false }
+          ],
+          explanation: '정답! 중학생 시기는 급성장기이므로 매끼 단백질(달걀·두부·고기·생선·콩)과 유제품(우유·치즈)을 챙기는 것이 중요해요.'
+        },
+        {
+          question: '🔍 [영양 탐정 미션] 목이 마를 때 "달콤 탄산음료(당류 27g)" 대신 "생수(당류 0g)"를 선택하면 어떤 점이 좋을까요?',
+          options: [
+            { text: '1) 불필요한 당류와 열량 섭취 없이 몸속 수분을 건강하게 채울 수 있다', correct: true },
+            { text: '2) 오히려 갈증이 더 심해진다', correct: false },
+            { text: '3) 충치가 더 잘 생긴다', correct: false }
+          ],
+          explanation: '정답! 물은 당류와 열량이 0이면서 체내 노폐물 배출과 집중력 유지에 가장 좋은 음료입니다.'
+        }
+      ],
 
-      // 8. 히든 엔딩 실천 다짐 선택지
       pledges: [
         '🌅 아침식사 거르지 않고 조금이라도 챙겨 먹기',
         '🥬 매끼 채소 반찬이나 과일 한 가지 이상 함께 먹기',
@@ -915,7 +1088,6 @@
     /**
      * =========================================================================
      * [사운드 엔진 - Web Audio API]
-     * 별도 MP3 파일 없이 브라우저 자체 신시사이저로 효과음 생성
      * =========================================================================
      */
     const SoundFX = {
@@ -983,32 +1155,36 @@
      * [게임 상태 관리 & localStorage 자동 저장]
      * =========================================================================
      */
-    const STORAGE_KEY = 'diet_survival_g6_save_v1';
+    const STORAGE_KEY = 'diet_survival_g6_save_v2';
 
     const defaultState = () => ({
       screen: 'intro', // intro | stage1 | stage2 | stage3_choice | stage3_home | stage3_store | ending
       soundOn: true,
       fastMode: false,
-      badges: [], // ['breakfast_keeper', 'balance_master', 'nutrition_detective']
+      badges: [],
+      // 필터 탭 상태
+      s1Filter: 'all',
+      homeFilter: 'all',
+      storeFilter: 'all',
       // 스테이지 1
       s1Tray: [],
       s1Event: null,
       s1Hp: 3,
       s1Cleared: false,
       // 스테이지 3 공통
-      dinnerPath: null, // 'home' | 'store'
+      dinnerPath: null,
       // 스테이지 3-A (집밥)
       homeTray: [],
       homeEvent: null,
       homeHp: 3,
       homeCleared: false,
-      homeQuizSolved: false,
+      homeQuizIndex: null,
       // 스테이지 3-B (편의점)
       storeCart: [],
       storeEvent: null,
       storeHp: 3,
       storeCleared: false,
-      inspectedIds: [], // 돋보기 확인한 상품 ID 목록
+      inspectedIds: [],
       // 엔딩
       selectedPledge: ''
     });
@@ -1018,9 +1194,7 @@
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          return { ...defaultState(), ...JSON.parse(raw) };
-        }
+        if (raw) return { ...defaultState(), ...JSON.parse(raw) };
       } catch (e) {}
       return defaultState();
     }
@@ -1042,10 +1216,33 @@
       render();
     }
 
+    // 엔딩에서 "다른 경로로 다시 플레이하기" 클릭 시 STAGE 3(저녁 선택)로 바로 이동
+    function replayFromStage3() {
+      stopFireworks();
+      SoundFX.play('pop');
+      // 저녁 관련 상태만 초기화 (아침밥 지킴이 배지와 아침 식단 기록은 유지!)
+      state.badges = state.badges.filter(b => b === 'breakfast_keeper');
+      state.dinnerPath = null;
+      state.homeTray = [];
+      state.homeEvent = null;
+      state.homeHp = 3;
+      state.homeCleared = false;
+      state.homeQuizIndex = null;
+      state.storeCart = [];
+      state.storeEvent = null;
+      state.storeHp = 3;
+      state.storeCleared = false;
+      state.inspectedIds = [];
+      state.selectedPledge = '';
+      state.screen = 'stage3_choice';
+      saveState();
+      render();
+    }
+
     function confirmReset() {
       showModal(`
         <h2 style="margin-top:0;">🔄 처음부터 다시 시작할까요?</h2>
-        <p style="color:#475569; line-height:1.6;">현재까지 모은 배지와 식단 진행 기록이 초기화됩니다.</p>
+        <p style="color:#475569; line-height:1.6;">현재까지 모은 배지와 식단 진행 기록이 모두 초기화됩니다.</p>
         <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;">
           <button class="btn btn-outline" onclick="closeModal()">취소</button>
           <button class="btn btn-warning" onclick="resetGame()">네, 처음부터 할게요</button>
@@ -1077,7 +1274,6 @@
     /**
      * =========================================================================
      * [핵심 판정 엔진: 몬스터 HP 3칸 차감 로직]
-     * 단순히 음식을 많이 담는 것이 아니라, 식단 결함이 해결될 때만 HP 차감!
      * =========================================================================
      */
     function evaluateBreakfast(trayIds) {
@@ -1089,24 +1285,23 @@
       const highSugarCount = items.filter(i => i.sugar === '매우 높음').length;
       const onlySnack = items.length > 0 && items.every(i => i.group === 'snack');
 
-      // 3가지 핵심 방어선(각 1 HP씩 감소)
       const criteria = [
         {
           passed: items.length >= 2 && !onlySnack && hasGrain,
           passMsg: '① 아침을 거르지 않고 든든한 곡류 에너지를 챙겼어요! (HP -1)',
-          failHint: '아침 빈속을 깨워줄 곡류(밥, 식빵, 시리얼)가 필요해요!'
+          failHint: '아침 빈속을 깨워줄 곡류(밥, 식빵, 모닝빵, 고구마, 오트밀 등)가 필요해요!'
         },
         {
           passed: hasProteinOrDairy,
           passMsg: '② 성장기 집중력을 높여주는 단백질/우유군을 조합했어요! (HP -1)',
-          failHint: '달걀, 두부, 우유 중 하나를 추가해 단백질·칼슘을 보충해 보세요!'
+          failHint: '달걀, 두부, 닭가슴살 소시지, 우유, 두유, 요거트 중 하나를 추가해 보세요!'
         },
         {
           passed: hasProduce && highSugarCount <= 1,
           passMsg: '③ 상큼한 채소/과일을 더하고 단 음식 의존을 줄였어요! (HP -1)',
           failHint: highSugarCount > 1
-            ? '단 음료나 도넛 비중이 높아요! 물이나 우유·과일로 균형을 맞춰 보세요.'
-            : '비타민을 채워줄 과일(바나나, 사과)이나 채소(방울토마토, 김)를 더해 보세요!'
+            ? '단 음식(초코도넛·초코우유) 비중이 높아요! 물이나 흰 우유·과일로 균형을 맞춰 보세요.'
+            : '비타민을 채워줄 과일(바나나, 사과, 귤, 키위)이나 채소(방울토마토, 오이, 김)를 더해 보세요!'
         }
       ];
 
@@ -1128,19 +1323,19 @@
         {
           passed: hasGrain && distinctCount >= 3,
           passMsg: '① 밥과 여러 반찬을 조화롭게 구성해 편식을 막았어요! (HP -1)',
-          failHint: '밥(곡류)을 포함해 서로 다른 반찬 3가지 이상으로 식판을 채워 보세요!'
+          failHint: '밥(곡류)을 포함해 서로 다른 음식 3가지 이상으로 식판을 채워 보세요!'
         },
         {
           passed: hasProtein,
           passMsg: '② 튼튼한 몸을 만드는 단백질 반찬을 챙겼어요! (HP -1)',
-          failHint: '달걀말이, 두부구이, 생선구이, 불고기 등 단백질 반찬을 추가해 보세요!'
+          failHint: '달걀말이, 두부구이, 생선구이, 불고기, 닭봉조림, 멸치볶음 등 단백질 반찬을 추가해 보세요!'
         },
         {
           passed: hasVeggieOrFruit && highSodiumCount <= 1,
           passMsg: '③ 채소·과일을 충분히 곁들이고 짠 반찬 균형을 맞췄어요! (HP -1)',
           failHint: highSodiumCount > 1
             ? '김치·햄·소시지 등 짠 반찬이 겹쳤어요! 나물이나 두부, 물로 염분 균형을 맞춰 보세요.'
-            : '시금치나물, 오이무침, 국 건더기 또는 과일을 추가해 식이섬유와 비타민을 채워 보세요!'
+            : '시금치나물, 오이무침, 브로콜리, 국 건더기 또는 과일을 추가해 비타민을 채워 보세요!'
         }
       ];
 
@@ -1168,14 +1363,14 @@
           passMsg: `① 예산(${budgetLimit.toLocaleString()}원) 안에서 주식과 단백질을 알뜰하게 챙겼어요! (HP -1)`,
           failHint: !withinBudget
             ? `예산(${budgetLimit.toLocaleString()}원)을 초과했거나 장바구니가 비어 있어요!`
-            : '삼각김밥·김밥·샌드위치 같은 주식과 달걀·닭가슴살·우유·두유를 조합해 보세요!'
+            : '삼각김밥·김밥·샌드위치·도시락 같은 주식과 달걀·닭가슴살·우유·두유를 조합해 보세요!'
         },
         {
           passed: hasVeggieOrFruit && highSugarOrSodium === 0,
           passMsg: '② 채소/과일을 챙기고 고당류·고나트륨 식품 의존을 피했어요! (HP -1)',
           failHint: highSugarOrSodium > 0
-            ? '탄산음료(당류 높음)나 컵라면(나트륨 높음) 대신 물·우유·김밥·샐러드로 바꾸면 훨씬 건강해요!'
-            : '편의점에서 놓치기 쉬운 샐러드, 바나나, 과일컵 중 하나를 꼭 담아 보세요!'
+            ? '탄산음료·바나나맛우유(당류 높음)나 컵라면·떡볶이(나트륨 높음) 대신 물·흰우유·김밥·샐러드로 바꾸면 건강해요!'
+            : '편의점에서 놓치기 쉬운 샐러드, 방울토마토컵, 바나나, 과일컵, 사과 중 하나를 꼭 담아 보세요!'
         },
         {
           passed: inspectedCount >= 2,
@@ -1205,38 +1400,44 @@
       document.getElementById('skipToggleBtn').textContent = state.fastMode ? '⚡ 빠른연출 ON' : '⏩ 연출 보통';
     }
 
+    function renderFilterTabs(currentFilter, handlerName) {
+      const tabs = [
+        { id: 'all', label: '전체 보기' },
+        { id: 'grain', label: '🍚 곡류·주식' },
+        { id: 'protein', label: '🥚 단백질' },
+        { id: 'veggie', label: '🥬 채소류' },
+        { id: 'fruit', label: '🍎 과일류' },
+        { id: 'dairy', label: '🥛 우유·유제품' },
+        { id: 'snack', label: '🥤 음료·간식' }
+      ];
+      return `
+        <div class="filter-tabs">
+          ${tabs.map(t => `
+            <button class="filter-tab ${currentFilter === t.id ? 'active' : ''}" onclick="${handlerName}('${t.id}')">
+              ${t.label}
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
     function render() {
       renderHeader();
       const main = document.getElementById('mainContainer');
 
       switch (state.screen) {
-        case 'intro':
-          main.innerHTML = renderIntro();
-          break;
-        case 'stage1':
-          main.innerHTML = renderStage1();
-          break;
-        case 'stage2':
-          main.innerHTML = renderStage2();
-          break;
-        case 'stage3_choice':
-          main.innerHTML = renderStage3Choice();
-          break;
-        case 'stage3_home':
-          main.innerHTML = renderStage3Home();
-          break;
-        case 'stage3_store':
-          main.innerHTML = renderStage3Store();
-          break;
-        case 'ending':
-          main.innerHTML = renderEnding();
-          break;
+        case 'intro': main.innerHTML = renderIntro(); break;
+        case 'stage1': main.innerHTML = renderStage1(); break;
+        case 'stage2': main.innerHTML = renderStage2(); break;
+        case 'stage3_choice': main.innerHTML = renderStage3Choice(); break;
+        case 'stage3_home': main.innerHTML = renderStage3Home(); break;
+        case 'stage3_store': main.innerHTML = renderStage3Store(); break;
+        case 'ending': main.innerHTML = renderEnding(); break;
       }
     }
 
     /* 0. 오프닝 화면 */
     function renderIntro() {
-      const hasProgress = state.screen !== 'intro' || state.badges.length > 0 || state.s1Tray.length > 0;
       return `
         <div class="hero-card">
           <div class="hero-tag">초등학교 6학년 영양·식생활 서바이벌</div>
@@ -1279,6 +1480,9 @@
       const m = GAME_CONFIG.monsters.breakfast;
       const ev = state.s1Event || GAME_CONFIG.breakfastEvents[0];
       const evalRes = evaluateBreakfast(state.s1Tray);
+      const filteredFoods = state.s1Filter === 'all'
+        ? GAME_CONFIG.breakfastFoods
+        : GAME_CONFIG.breakfastFoods.filter(f => f.group === state.s1Filter);
 
       return `
         <div class="monster-arena">
@@ -1298,7 +1502,7 @@
         </div>
 
         <div class="event-banner">
-          <span>🌅 <strong>오전 7:30</strong> · 늦잠을 자서 등교까지 20분 남았다! | ${ev.text}</span>
+          <span>🌅 <strong>오전 7:30</strong> · ${ev.text}</span>
           <button class="icon-btn" style="background:#b45309; border:none;" onclick="rerollBreakfastEvent()">🎲 다른 상황</button>
         </div>
 
@@ -1319,16 +1523,11 @@
           </div>
         </div>
 
-        <!-- 내 아침 식판 -->
+        <!-- 나의 아침 식판 -->
         <div class="tray-section">
           <div class="tray-header">
             <strong>🍽️ 나의 아침 식판 (${evalRes.items.length}/5개 선택)</strong>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearStage1Tray()">비우기</button>
-              <button class="btn btn-primary" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleBreakfast()">
-                ⚔️ 아침 식단으로 대결하기!
-              </button>
-            </div>
+            <button class="btn btn-outline" style="min-height:38px; padding:6px 14px; font-size:0.88rem;" onclick="clearStage1Tray()">🗑️ 식판 비우기</button>
           </div>
           <div class="tray-items">
             ${evalRes.items.length === 0
@@ -1342,9 +1541,19 @@
           </div>
         </div>
 
+        <!-- 별도 독립된 대결하기 버튼 영역 -->
+        <div class="battle-action-box">
+          <button class="btn btn-primary btn-battle" onclick="battleBreakfast()">
+            ⚔️ 아침 식단으로 대결하기!
+          </button>
+        </div>
+
+        <!-- 식품군 필터 탭 -->
+        ${renderFilterTabs(state.s1Filter, 'setS1Filter')}
+
         <!-- 음식 선택 목록 -->
         <div class="food-grid">
-          ${GAME_CONFIG.breakfastFoods.map(food => {
+          ${filteredFoods.map(food => {
             const isSoldOut = ev.soldOutIds.includes(food.id);
             const count = state.s1Tray.filter(id => id === food.id).length;
             const grp = GAME_CONFIG.foodGroups[food.group];
@@ -1371,10 +1580,22 @@
       `;
     }
 
+    function setS1Filter(f) {
+      SoundFX.play('pop');
+      state.s1Filter = f;
+      render();
+    }
+
     function rerollBreakfastEvent() {
       SoundFX.play('pop');
       const list = GAME_CONFIG.breakfastEvents;
-      state.s1Event = list[Math.floor(Math.random() * list.length)];
+      let nextEv = list[Math.floor(Math.random() * list.length)];
+      if (state.s1Event && list.length > 1) {
+        while (nextEv.id === state.s1Event.id) {
+          nextEv = list[Math.floor(Math.random() * list.length)];
+        }
+      }
+      state.s1Event = nextEv;
       state.s1Tray = state.s1Tray.filter(id => !state.s1Event.soldOutIds.includes(id));
       saveState();
       render();
@@ -1407,11 +1628,8 @@
       state.s1Hp = res.remainingHp;
       saveState();
 
-      if (res.passedCount > 0) {
-        SoundFX.play('hit');
-      } else {
-        SoundFX.play('fail');
-      }
+      if (res.passedCount > 0) SoundFX.play('hit');
+      else SoundFX.play('fail');
 
       if (res.remainingHp === 0) {
         state.s1Cleared = true;
@@ -1456,7 +1674,7 @@
       }
     }
 
-    /* 2. STAGE 2 : 학교급식 스토리 전환 */
+    /* 2. STAGE 2 : 학교급식 스토리 전환 (강화된 급식 식판 일러스트) */
     function goToStage2() {
       SoundFX.play('pop');
       state.screen = 'stage2';
@@ -1468,14 +1686,49 @@
       return `
         <div class="hero-card">
           <div class="hero-tag">STAGE 2 · 오후 12:30 학교급식</div>
-          <div style="font-size:4rem; margin:10px 0;">🏫🍱😋</div>
-          <h2 class="hero-title">영양선생님이 설계한 균형 잡힌 학교급식!</h2>
-          <div class="story-box">
-            <strong>점심시간은 학교급식으로 해결!</strong><br><br>
-            따뜻한 잡곡밥, 단백질 반찬, 신선한 채소 나물, 제철 과일까지 알록달록한 학교급식을 남기지 않고 맛있게 먹었다!<br>
-            든든한 점심 덕분에 오후 수업도 집중해서 마치고, 이제 <strong>학원 가기 전 저녁 시간</strong>이 다가왔다.
+          <h2 class="hero-title">영양선생님이 설계한 황금 균형 학교급식!</h2>
+          <p class="hero-sub" style="margin-bottom:10px;">6가지 식품군이 골고루 담긴 학교급식으로 오후 수업 에너지 충전 완료!</p>
+
+          <!-- 시각화된 학교급식 식판 일러스트 카드 -->
+          <div class="school-lunch-scene">
+            <div style="font-weight:900; color:#166534; margin-bottom:12px; font-size:1.05rem;">
+              🏫 오늘의 중학교 웰컴 급식 식판 ✨
+            </div>
+            <div class="lunch-tray-visual">
+              <div class="tray-slot">
+                <span class="tray-slot-emoji">🐟</span>
+                <span class="tray-slot-label">고등어구이<br><small style="color:#0284c7;">(단백질)</small></span>
+              </div>
+              <div class="tray-slot">
+                <span class="tray-slot-emoji">🥬</span>
+                <span class="tray-slot-label">시금치나물<br><small style="color:#16a34a;">(채소류)</small></span>
+              </div>
+              <div class="tray-slot">
+                <span class="tray-slot-emoji">🍎</span>
+                <span class="tray-slot-label">사과·귤<br><small style="color:#ea580c;">(과일류)</small></span>
+              </div>
+              <div class="tray-slot">
+                <span class="tray-slot-emoji">🥛</span>
+                <span class="tray-slot-label">흰 우유<br><small style="color:#2563eb;">(유제품)</small></span>
+              </div>
+              <div class="tray-slot wide">
+                <span class="tray-slot-emoji">🌾</span>
+                <span class="tray-slot-label">따뜻한 잡곡밥 <small style="color:#b45309;">(곡류 에너지)</small></span>
+              </div>
+              <div class="tray-slot wide">
+                <span class="tray-slot-emoji">🍲</span>
+                <span class="tray-slot-label">두부 미역국 <small style="color:#059669;">(채소·단백질)</small></span>
+              </div>
+            </div>
           </div>
-          <button class="btn btn-primary" style="font-size:1.1rem;" onclick="goToStage3Choice()">
+
+          <div class="story-box">
+            <strong>점심시간은 학교급식으로 든든하게 해결!</strong><br>
+            알록달록한 학교급식을 골고루 맛있게 먹고 오후 체육과 동아리 활동까지 활기차게 마쳤다.<br>
+            이제 <strong>오후 6:30 학원 가기 전 저녁 시간</strong>! 스스로 건강한 저녁을 선택할 차례다!
+          </div>
+
+          <button class="btn btn-primary" style="font-size:1.12rem; padding:16px 28px;" onclick="goToStage3Choice()">
             오후 6:30 저녁 식사 선택하러 가기 ▶
           </button>
         </div>
@@ -1503,7 +1756,7 @@
               <h3 style="margin:0 0 8px; font-size:1.3rem;">A경로 : 집밥 챌린지</h3>
               <p style="color:#475569; font-size:0.95rem; line-height:1.5;">
                 냉장고 문을 열고 밥과 반찬을 조합해<br><strong>균형 실종 몬스터</strong>를 물리치자!<br>
-                <span style="color:#7c3aed; font-weight:700;">(+ 보너스 영양 탐정 퀴즈 포함)</span>
+                <span style="color:#7c3aed; font-weight:700;">(+ 랜덤 영양 탐정 퀴즈 미션 포함)</span>
               </p>
               <button class="btn btn-success" style="width:100%; margin-top:10px;">집밥으로 도전하기</button>
             </div>
@@ -1512,7 +1765,7 @@
               <div style="font-size:3.5rem; margin-bottom:10px;">🏪🍙</div>
               <h3 style="margin:0 0 8px; font-size:1.3rem;">B경로 : 편의점 서바이벌</h3>
               <p style="color:#475569; font-size:0.95rem; line-height:1.5;">
-                제한된 예산 안에서 영양표시(🔍)를 확인해<br><strong>달콤짭짤 몬스터</strong>를 물리치자!<br>
+                10,000원 예산 안에서 영양표시(🔍)를 확인해<br><strong>달콤짭짤 몬스터</strong>를 물리치자!<br>
                 <span style="color:#2563eb; font-weight:700;">(+ 실전 예산 & 영양표시 탐정 미션)</span>
               </p>
               <button class="btn btn-primary" style="width:100%; margin-top:10px;">편의점으로 도전하기</button>
@@ -1547,11 +1800,14 @@
       const m = GAME_CONFIG.monsters.home;
       const ev = state.homeEvent || GAME_CONFIG.homeEvents[0];
       const evalRes = evaluateHomeDinner(state.homeTray);
+      const filteredFoods = state.homeFilter === 'all'
+        ? GAME_CONFIG.homeFoods
+        : GAME_CONFIG.homeFoods.filter(f => f.group === state.homeFilter);
 
       return `
         <div class="monster-arena">
           <div class="monster-info">
-            <div class="monster-avatar" id="monsterAvatar">🍽️</div>
+            <div class="monster-avatar" id="monsterAvatar">${m.emoji}</div>
             <div>
               <div class="monster-name">STAGE 3-A · ${m.name}</div>
               <div class="monster-quote">${state.homeCleared ? m.defeatQuote : m.taunt}</div>
@@ -1590,15 +1846,11 @@
           </div>
         </div>
 
+        <!-- 나의 저녁 집밥 식판 -->
         <div class="tray-section">
           <div class="tray-header">
             <strong>🍱 나의 저녁 집밥 식판 (${evalRes.items.length}/5개 선택)</strong>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearHomeTray()">비우기</button>
-              <button class="btn btn-success" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleHomeDinner()">
-                ⚔️ 집밥 식판으로 대결하기!
-              </button>
-            </div>
+            <button class="btn btn-outline" style="min-height:38px; padding:6px 14px; font-size:0.88rem;" onclick="clearHomeTray()">🗑️ 식판 비우기</button>
           </div>
           <div class="tray-items">
             ${evalRes.items.length === 0
@@ -1612,8 +1864,19 @@
           </div>
         </div>
 
+        <!-- 별도 독립된 집밥 대결하기 버튼 영역 -->
+        <div class="battle-action-box" style="background:linear-gradient(135deg, #ecfdf5, #f0f9ff); border-color:#6ee7b7;">
+          <button class="btn btn-success btn-battle" onclick="battleHomeDinner()">
+            ⚔️ 집밥 식판으로 대결하기!
+          </button>
+        </div>
+
+        <!-- 식품군 필터 탭 -->
+        ${renderFilterTabs(state.homeFilter, 'setHomeFilter')}
+
+        <!-- 음식 선택 목록 -->
         <div class="food-grid">
-          ${GAME_CONFIG.homeFoods.map(food => {
+          ${filteredFoods.map(food => {
             const isSoldOut = ev.soldOutIds.includes(food.id);
             const count = state.homeTray.filter(id => id === food.id).length;
             const grp = GAME_CONFIG.foodGroups[food.group];
@@ -1640,10 +1903,22 @@
       `;
     }
 
+    function setHomeFilter(f) {
+      SoundFX.play('pop');
+      state.homeFilter = f;
+      render();
+    }
+
     function rerollHomeEvent() {
       SoundFX.play('pop');
       const list = GAME_CONFIG.homeEvents;
-      state.homeEvent = list[Math.floor(Math.random() * list.length)];
+      let nextEv = list[Math.floor(Math.random() * list.length)];
+      if (state.homeEvent && list.length > 1) {
+        while (nextEv.id === state.homeEvent.id) {
+          nextEv = list[Math.floor(Math.random() * list.length)];
+        }
+      }
+      state.homeEvent = nextEv;
       state.homeTray = state.homeTray.filter(id => !state.homeEvent.soldOutIds.includes(id));
       saveState();
       render();
@@ -1684,7 +1959,7 @@
         awardBadge('balance_master');
         SoundFX.play('win');
         render();
-        showHomeBonusQuiz(res);
+        showHomeBonusQuiz();
       } else {
         render();
         const avatar = document.getElementById('monsterAvatar');
@@ -1710,39 +1985,43 @@
       }
     }
 
-    function showHomeBonusQuiz(evalRes) {
-      const q = GAME_CONFIG.homeDetectiveQuiz;
+    // 보너스 영양 탐정 미션 (건너뛰기 없음 + 무작위 8종 퀴즈)
+    function showHomeBonusQuiz() {
+      const quizzes = GAME_CONFIG.homeDetectiveQuizzes;
+      const qIdx = Math.floor(Math.random() * quizzes.length);
+      state.homeQuizIndex = qIdx;
+      const q = quizzes[qIdx];
+
       showModal(`
         <div style="text-align:center;">
           <div style="font-size:3rem;">🎉🥗</div>
           <h2 style="margin:6px 0; color:#059669;">균형 실종 몬스터 격파!</h2>
-          <p style="font-weight:700;">[🥗 균형 식판 달인 배지] 획득!</p>
-          <div class="story-box" style="font-size:0.92rem; margin:12px 0;">
-            <p style="margin-top:0; font-weight:800; color:#1d4ed8;">${q.question}</p>
+          <p style="font-weight:700; margin-bottom:10px;">[🥗 균형 식판 달인 배지] 획득!</p>
+          <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:14px; padding:10px; font-weight:800; color:#1d4ed8; font-size:0.92rem;">
+            🚨 마지막 관문! 보너스 영양 탐정 미션을 통과해야 하루가 완성됩니다!
+          </div>
+          <div class="story-box" style="font-size:0.95rem; margin:12px 0 0;">
+            <p style="margin-top:0; font-weight:800; color:#0f172a;">${q.question}</p>
             <div style="display:flex; flex-direction:column; gap:8px;">
-              ${q.options.map((opt, i) => `
+              ${q.options.map(opt => `
                 <button class="pledge-btn" onclick="answerHomeQuiz(${opt.correct})">${opt.text}</button>
               `).join('')}
             </div>
           </div>
-          <button class="btn btn-outline" style="width:100%;" onclick="closeModal(); goToEnding();">
-            퀴즈 건너뛰고 결과 보기 ▶
-          </button>
         </div>
       `);
     }
 
     function answerHomeQuiz(isCorrect) {
-      const q = GAME_CONFIG.homeDetectiveQuiz;
+      const q = GAME_CONFIG.homeDetectiveQuizzes[state.homeQuizIndex || 0];
       if (isCorrect) {
         SoundFX.play('win');
-        state.homeQuizSolved = true;
         awardBadge('nutrition_detective');
         showModal(`
           <div style="text-align:center;">
             <div style="font-size:3.2rem;">🔍✨</div>
             <h2 style="color:#2563eb;">보너스 미션 성공!</h2>
-            <p style="font-weight:800;">[🔍 영양 탐정 배지]까지 추가 획득했습니다!</p>
+            <p style="font-weight:800;">[🔍 영양 탐정 배지]까지 모두 획득했습니다!</p>
             <div class="story-box" style="font-size:0.95rem;">${q.explanation}</div>
             <button class="btn btn-primary" style="width:100%;" onclick="closeModal(); goToEnding();">
               최종 엔딩 확인하기 🏆
@@ -1751,17 +2030,20 @@
         `);
       } else {
         SoundFX.play('fail');
-        alert('아쉬워요! 다시 한 번 생각해 볼까요? 가공식품 뒷면에서 건강을 위해 꼭 확인해야 할 성분은 무엇일까요?');
+        alert('아쉬워요! 다시 한 번 문제를 잘 읽고 정답을 선택해 보세요!');
       }
     }
 
-    /* 3-B. 편의점 서바이벌 */
+    /* 3-B. 편의점 서바이벌 (예산 10,000원 & 독립 대결 칸) */
     function renderStage3Store() {
       const m = GAME_CONFIG.monsters.store;
       const ev = state.storeEvent || GAME_CONFIG.storeEvents[0];
-      const budgetLimit = ev.budget || 7000;
+      const budgetLimit = ev.budget || 10000;
       const evalRes = evaluateStoreDinner(state.storeCart, state.inspectedIds, budgetLimit);
       const remainMoney = budgetLimit - evalRes.totalCost;
+      const filteredFoods = state.storeFilter === 'all'
+        ? GAME_CONFIG.storeFoods
+        : GAME_CONFIG.storeFoods.filter(f => f.group === state.storeFilter);
 
       return `
         <div class="monster-arena">
@@ -1811,15 +2093,11 @@
           </div>
         </div>
 
+        <!-- 편의점 장바구니 -->
         <div class="tray-section">
           <div class="tray-header">
             <strong>🛒 편의점 장바구니 (${evalRes.items.length}/5개 선택)</strong>
-            <div style="display:flex; gap:8px;">
-              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearStoreCart()">비우기</button>
-              <button class="btn btn-primary" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleStoreDinner()">
-                💳 계산하고 몬스터와 대결!
-              </button>
-            </div>
+            <button class="btn btn-outline" style="min-height:38px; padding:6px 14px; font-size:0.88rem;" onclick="clearStoreCart()">🗑️ 장바구니 비우기</button>
           </div>
           <div class="tray-items">
             ${evalRes.items.length === 0
@@ -1833,8 +2111,22 @@
           </div>
         </div>
 
+        <!-- 별도 독립된 편의점 계산 및 대결하기 칸 -->
+        <div class="battle-action-box">
+          <div style="font-size:0.92rem; font-weight:800; color:#1e3a8a;">
+            총 결제 금액: <span style="color:${remainMoney < 0 ? '#dc2626' : '#2563eb'};">${evalRes.totalCost.toLocaleString()}원</span> / 예산 ${budgetLimit.toLocaleString()}원
+          </div>
+          <button class="btn btn-primary btn-battle" onclick="battleStoreDinner()">
+            💳 계산하고 몬스터와 대결!
+          </button>
+        </div>
+
+        <!-- 식품군 필터 탭 -->
+        ${renderFilterTabs(state.storeFilter, 'setStoreFilter')}
+
+        <!-- 편의점 상품 목록 -->
         <div class="food-grid">
-          ${GAME_CONFIG.storeFoods.map(food => {
+          ${filteredFoods.map(food => {
             const isSoldOut = ev.soldOutIds.includes(food.id);
             const count = state.storeCart.filter(id => id === food.id).length;
             const inspected = state.inspectedIds.includes(food.id);
@@ -1864,10 +2156,22 @@
       `;
     }
 
+    function setStoreFilter(f) {
+      SoundFX.play('pop');
+      state.storeFilter = f;
+      render();
+    }
+
     function rerollStoreEvent() {
       SoundFX.play('pop');
       const list = GAME_CONFIG.storeEvents;
-      state.storeEvent = list[Math.floor(Math.random() * list.length)];
+      let nextEv = list[Math.floor(Math.random() * list.length)];
+      if (state.storeEvent && list.length > 1) {
+        while (nextEv.id === state.storeEvent.id) {
+          nextEv = list[Math.floor(Math.random() * list.length)];
+        }
+      }
+      state.storeEvent = nextEv;
       state.storeCart = state.storeCart.filter(id => !state.storeEvent.soldOutIds.includes(id));
       saveState();
       render();
@@ -1957,7 +2261,7 @@
     }
 
     function battleStoreDinner() {
-      const budgetLimit = (state.storeEvent && state.storeEvent.budget) || 7000;
+      const budgetLimit = (state.storeEvent && state.storeEvent.budget) || 10000;
       const res = evaluateStoreDinner(state.storeCart, state.inspectedIds, budgetLimit);
       state.storeHp = res.remainingHp;
       saveState();
@@ -2036,7 +2340,7 @@
           <p class="hero-sub">
             ${isHidden
               ? '모든 건강 방해 몬스터를 물리치고 3개의 배지를 모두 모았습니다! 중학교에서도 스스로 건강을 지킬 준비 완료!'
-              : '아침과 저녁 미션을 멋지게 완수했습니다! (배지 3종을 모두 모으면 히든 엔딩이 열려요)'}
+              : '아침과 저녁 미션을 멋지게 완수했습니다!'}
           </p>
 
           <!-- 획득 배지 -->
@@ -2076,8 +2380,9 @@
             ` : ''}
           </div>
 
+          <!-- STAGE 3(저녁 경로 선택)로 바로 이동 -->
           <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px;">
-            <button class="btn btn-primary" onclick="resetGame()">🔄 다른 경로로 다시 플레이하기</button>
+            <button class="btn btn-primary" onclick="replayFromStage3()">🔄 다른 경로로 다시 플레이하기 (STAGE 3 저녁 선택)</button>
           </div>
         </div>
       `;
