@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>중1 식생활 서바이벌 : 건강한 하루를 완성하라!</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #10b981;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 1024px;
+      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 상단 헤더바 */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: #1e293b;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pill-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .mini-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: #334155;
+      color: #94a3b8;
+      border: 1px solid #475569;
+      transition: all 0.3s;
+    }
+
+    .mini-badge.earned {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #1e293b;
+      border-color: #fde68a;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+    }
+
+    .icon-btn {
+      background: #334155;
+      color: #fff;
+      border: 1px solid #475569;
+      border-radius: 10px;
+      padding: 7px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.96);
+    }
+
+    .icon-btn.danger {
+      background: #7f1d1d;
+      border-color: #991b1b;
+    }
+
+    /* 메인 컨테이너 */
+    .main-content {
+      flex: 1;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* 버튼 공통 (태블릿 터치 최적화) */
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 14px 22px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.12s, box-shadow 0.2s, opacity 0.2s;
+      min-height: 52px;
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-purple {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+
+    /* 오프닝 및 스토리 카드 */
+    .hero-card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 2px solid #e0f2fe;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      font-weight: 900;
+      margin: 0 0 8px;
+      line-height: 1.25;
+      color: #0f172a;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    .story-box {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 18px;
+      text-align: left;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* 몬스터 대결 배너 */
+    .monster-arena {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      color: #fff;
+      border-radius: 20px;
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .monster-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .monster-avatar {
+      font-size: 3.2rem;
+      background: rgba(255, 255, 255, 0.12);
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .monster-avatar.shake {
+      animation: shake 0.45s ease;
+    }
+
+    .monster-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fde047;
+      margin-bottom: 4px;
+    }
+
+    .monster-quote {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 6px 12px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .hp-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .hp-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .hp-bars {
+      display: flex;
+      gap: 8px;
+    }
+
+    .hp-cell {
+      width: 38px;
+      height: 18px;
+      border-radius: 6px;
+      background: #ef4444;
+      border: 2px solid #fca5a5;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+      transition: all 0.35s;
+    }
+
+    .hp-cell.lost {
+      background: #334155;
+      border-color: #475569;
+      box-shadow: none;
+    }
+
+    /* 돌발 이벤트 & 미션 상태바 */
+    .event-banner {
+      background: #fef3c7;
+      border: 2px solid #f59e0b;
+      color: #92400e;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-title {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .stat-value {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* 식품군 칩 */
+    .group-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .group-chip {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1.5px solid #cbd5e1;
+    }
+
+    .group-chip.active {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #22c55e;
+    }
+
+    /* 식판 / 장바구니 영역 */
+    .tray-section {
+      background: #ffffff;
+      border: 2.5px dashed #93c5fd;
+      border-radius: 20px;
+      padding: 14px 16px;
+    }
+
+    .tray-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tray-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 64px;
+      align-items: center;
+    }
+
+    .tray-item {
+      background: #eff6ff;
+      border: 2px solid #60a5fa;
+      border-radius: 14px;
+      padding: 8px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .tray-item:active {
+      transform: scale(0.95);
+    }
+
+    .tray-remove {
+      background: #ef4444;
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+
+    /* 음식 선택 그리드 */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .food-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      position: relative;
+      transition: border-color 0.2s, transform 0.1s;
+    }
+
+    .food-card.sold-out {
+      opacity: 0.45;
+      background: #f1f5f9;
+    }
+
+    .food-card.in-tray {
+      border-color: #3b82f6;
+      background: #f0f9ff;
+    }
+
+    .food-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .food-emoji {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .inspect-btn {
+      background: #f1f5f9;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 5px 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      color: #334155;
+    }
+
+    .inspect-btn.checked {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #166534;
+    }
+
+    .food-name {
+      font-weight: 800;
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .food-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .food-add-btn {
+      width: 100%;
+      padding: 9px;
+      border-radius: 10px;
+      border: none;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .food-add-btn:disabled {
+      background: #e2e8f0;
+      color: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* 경로 선택 카드 */
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .path-card {
+      background: #fff;
+      border: 3px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.2s;
+    }
+
+    .path-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    /* 모달 팝업 */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 500px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .nutrition-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      border: 2px solid #0f172a;
+    }
+
+    .nutrition-table th,
+    .nutrition-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .nutrition-table th {
+      background: #f8fafc;
+      width: 45%;
+    }
+
+    /* 엔딩 및 실천 다짐 */
+    .pledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .pledge-btn {
+      padding: 14px;
+      border-radius: 14px;
+      border: 2px solid #cbd5e1;
+      background: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .pledge-btn.selected {
+      border-color: #10b981;
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    /* 폭죽 캔버스 */
+    #fireworksCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    /* 하단 학습용 안내 문구 */
+    .disclaimer-footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #64748b;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px) rotate(-4deg); }
+      40% { transform: translateX(8px) rotate(4deg); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+    }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 1.45rem; }
+      .food-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworksCanvas"></canvas>
+  <div id="app">
+    <!-- 상단 바 -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <span>🍱 중1 식생활 서바이벌</span>
+      </div>
+      <div class="topbar-controls">
+        <div class="badge-pill-row" id="headerBadges"></div>
+        <button class="icon-btn" id="soundToggleBtn" onclick="toggleSound()">🔊 효과음 ON</button>
+        <button class="icon-btn" id="skipToggleBtn" onclick="toggleFastMode()">⏩ 연출 보통</button>
+        <button class="icon-btn danger" onclick="confirmReset()">🔄 처음부터</button>
+      </div>
+    </header>
+
+    <!-- 메인 동적 화면 -->
+    <main class="main-content" id="mainContainer"></main>
+
+    <!-- 하단 교육용 고지 -->
+    <footer class="disclaimer-footer">
+      ※ 본 게임의 영양 수치는 초등학교 6학년 식생활 학습을 돕기 위한 <strong>교육용 간이 지표</strong>이며, 특정 음식을 나쁜 음식으로 단정하지 않고 전체 식단의 균형을 배우는 데 목적이 있습니다.
+    </footer>
+  </div>
+
+  <!-- 공용 모달 영역 -->
+  <div id="modalRoot"></div>
+
+  <script>
+    /**
+     * =========================================================================
+     * [교사용 설정 영역: GAME_CONFIG]
+     * 비개발자 선생님도 아래의 음식 목록, 가격, 이벤트 문구, 몬스터 대사를
+     * 자유롭게 수정하여 수업에 활용하실 수 있습니다.
+     * =========================================================================
+     */
+    const GAME_CONFIG = {
+      // 1. 식품군 정의 (6종)
+      foodGroups: {
+        grain: { id: 'grain', name: '곡류·주식', emoji: '🍚' },
+        protein: { id: 'protein', name: '단백질 식품', emoji: '🥚' },
+        veggie: { id: 'veggie', name: '채소류', emoji: '🥬' },
+        fruit: { id: 'fruit', name: '과일류', emoji: '🍎' },
+        dairy: { id: 'dairy', name: '우유·유제품', emoji: '🥛' },
+        snack: { id: 'snack', name: '음료·간식', emoji: '🥤' }
+      },
+
+      // 2. 몬스터 정보 (기본 HP 3칸)
+      monsters: {
+        breakfast: {
+          name: '아침잠 몬스터',
+          emoji: '😴',
+          maxHp: 3,
+          taunt: '"조금만 더 자! 아침밥은 그냥 건너뛰어!"',
+          hurtQuote: '"으악! 아침부터 든든하게 먹다니 힘이 빠진다!"',
+          defeatQuote: '"크윽... 아침밥 에너지를 이길 수 없어!"',
+          badgeId: 'breakfast_keeper'
+        },
+        home: {
+          name: '균형 실종 몬스터',
+          emoji: '偏',
+          maxHp: 3,
+          taunt: '"반찬은 좋아하는 것 하나면 충분해! 채소는 빼!"',
+          hurtQuote: '"억! 여러 식품군이 힘을 합치니 내 편식 마법이 깨진다!"',
+          defeatQuote: '"알록달록 균형 식판 앞에 무릎을 꿇는다..."',
+          badgeId: 'balance_master'
+        },
+        store: {
+          name: '달콤짭짤 몬스터',
+          emoji: '😈',
+          maxHp: 3,
+          taunt: '"영양표시는 볼 필요 없어! 달고 짠 게 최고야!"',
+          hurtQuote: '"아니, 뒷면의 당류와 나트륨 표시를 확인하다니?!"',
+          defeatQuote: '"예산 안에서 영양까지 챙기는 편의점 탐정에게 졌다!"',
+          badgeId: 'nutrition_detective'
+        }
+      },
+
+      // 3. 배지 정의 (3종)
+      badges: {
+        breakfast_keeper: { id: 'breakfast_keeper', name: '아침밥 지킴이', icon: '🌅' },
+        balance_master: { id: 'balance_master', name: '균형 식판 달인', icon: '🥗' },
+        nutrition_detective: { id: 'nutrition_detective', name: '영양 탐정', icon: '🔍' }
+      },
+
+      // 4. STAGE 1: 아침밥 챌린지 음식 목록 (교육용 간이 지표)
+      breakfastFoods: [
+        { id: 'b_rice', name: '따뜻한 밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '뇌에 에너지를 공급하는 든든한 주식!' },
+        { id: 'b_bread', name: '식빵 1장', emoji: '🍞', group: 'grain', kcal: 150, protein: '보통', sugar: '보통', sodium: '보통', tip: '달걀이나 우유와 함께 먹으면 더 좋아요.' },
+        { id: 'b_cereal', name: '시리얼', emoji: '🥣', group: 'grain', kcal: 160, protein: '낮음', sugar: '높음', sodium: '보통', tip: '우유·과일을 곁들이면 영양 균형이 올라가요.' },
+        { id: 'b_egg', name: '삶은 달걀', emoji: '🥚', group: 'protein', kcal: 75, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '아침에 간편하게 챙기는 완전 단백질!' },
+        { id: 'b_tofu', name: '부드러운 두부', emoji: '🧊', group: 'protein', kcal: 85, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '소화가 잘 되는 식물성 단백질 식품!' },
+        { id: 'b_milk', name: '흰 우유', emoji: '🥛', group: 'dairy', kcal: 125, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '성장에 꼭 필요한 칼슘과 단백질 공급원!' },
+        { id: 'b_banana', name: '바나나', emoji: '🍌', group: 'fruit', kcal: 90, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '바쁜 아침 껍질만 까서 바로 먹는 에너지 과일!' },
+        { id: 'b_apple', name: '사과 조각', emoji: '🍎', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '아침 사과는 비타민과 식이섬유가 풍부해요.' },
+        { id: 'b_tomato', name: '방울토마토', emoji: '🍅', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '씻어서 바로 먹을 수 있는 간편 채소!' },
+        { id: 'b_seaweed', name: '구운 김', emoji: '🌿', group: 'veggie', kcal: 20, protein: '보통', sugar: '낮음', sodium: '보통', tip: '밥과 함께 먹으면 미네랄을 보충해 줘요.' },
+        { id: 'b_donut', name: '초코 도넛', emoji: '🍩', group: 'snack', kcal: 280, protein: '낮음', sugar: '매우 높음', sodium: '보통', tip: '당류가 높아요. 우유·과일과 조합해 보세요!' },
+        { id: 'b_soda', name: '탄산음료', emoji: '🥤', group: 'snack', kcal: 110, protein: '낮음', sugar: '매우 높음', sodium: '낮음', tip: '빈속에 탄산음료만 마시면 금방 배가 고파져요.' },
+        { id: 'b_water', name: '시원한 물', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '잠자는 동안 부족해진 수분을 깨워줘요!' }
+      ],
+
+      // STAGE 1 돌발 이벤트
+      breakfastEvents: [
+        { id: 'ev_b1', text: '⚠️ 돌발 상황: 어제 밤에 다 먹어서 "달걀이 다 떨어졌습니다!" (삶은 달걀 품절)', soldOutIds: ['b_egg'] },
+        { id: 'ev_b2', text: '⚠️ 돌발 상황: 냉장고를 열어보니 "우유가 없습니다!" (흰 우유 품절)', soldOutIds: ['b_milk'] },
+        { id: 'ev_b3', text: '⏰ 돌발 상황: "등교 시간이 10분밖에 남지 않았습니다!" 간편하게 조합해 보세요!', soldOutIds: [] },
+        { id: 'ev_b4', text: '✨ 행운 이벤트: "냉장고에 바나나가 남아 있습니다!" 바나나를 활용해 보세요!', soldOutIds: [] }
+      ],
+
+      // 5. STAGE 3-A: 집밥 챌린지 음식 목록
+      homeFoods: [
+        { id: 'h_whiterice', name: '흰쌀밥', emoji: '🍚', group: 'grain', kcal: 210, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '우리 식탁의 기본 에너지원!' },
+        { id: 'h_multigrain', name: '잡곡밥', emoji: '🌾', group: 'grain', kcal: 205, protein: '보통', sugar: '낮음', sodium: '낮음', tip: '식이섬유와 비타민이 풍부한 건강 밥!' },
+        { id: 'h_doenjang', name: '된장국', emoji: '🍲', group: 'veggie', kcal: 65, protein: '보통', sugar: '낮음', sodium: '보통', tip: '건더기 위주로 먹으면 채소와 단백질을 챙겨요.' },
+        { id: 'h_miyeok', name: '미역국', emoji: '🥣', group: 'veggie', kcal: 55, protein: '낮음', sugar: '낮음', sodium: '보통', tip: '미네랄이 풍부한 따뜻한 국!' },
+        { id: 'h_eggroll', name: '달걀말이', emoji: '🍳', group: 'protein', kcal: 120, protein: '높음', sugar: '낮음', sodium: '보통', tip: '채소를 다져 넣으면 영양 만점 반찬!' },
+        { id: 'h_fish', name: '고등어구이', emoji: '🐟', group: 'protein', kcal: 180, protein: '높음', sugar: '낮음', sodium: '보통', tip: '두뇌 발달에 좋은 오메가-3와 단백질!' },
+        { id: 'h_tofu', name: '두부구이', emoji: '🟨', group: 'protein', kcal: 110, protein: '높음', sugar: '낮음', sodium: '낮음', tip: '담백하고 고소한 식물성 단백질 반찬!' },
+        { id: 'h_bulgogi', name: '소불고기', emoji: '🥩', group: 'protein', kcal: 220, protein: '높음', sugar: '보통', sodium: '보통', tip: '성장기 근육과 혈액 생성을 돕는 단백질!' },
+        { id: 'h_spinach', name: '시금치나물', emoji: '🥬', group: 'veggie', kcal: 35, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '눈과 뼈 건강에 좋은 초록빛 채소!' },
+        { id: 'h_cucumber', name: '오이무침', emoji: '🥒', group: 'veggie', kcal: 30, protein: '낮음', sugar: '낮음', sodium: '낮음', tip: '아삭아삭 수분과 비타민을 채워주는 반찬!' },
+        { id: 'h_kimchi', name: '배추김치', emoji: '🌶️', group: 'veggie', kcal: 25, protein: '낮음', sugar: '낮음', sodium: '높음', tip: '발효 채소지만 짠맛이 있으니 적당량 먹어요.' },
+        { id: 'h_ham', name: '구운 햄', emoji: '🥓', group: 'protein', kcal: 150, protein: '보통', sugar: '낮음', sodium: '높음', tip: '가공육은 나트륨이 높으니 채소 반찬과 곁들여요!' },
+        { id: 'h_sausage', name: '비엔나소시지', emoji: '🌭', group: 'protein', kcal: 165, protein: '보통', sugar: '낮음', sodium: '높음', tip: '짜기 쉬우므로 다른 담백한 반찬과 균형을 맞춰요.' },
+        { id: 'h_fruit', name: '제철 과일(귤/사과)', emoji: '🍊', group: 'fruit', kcal: 60, protein: '낮음', sugar: '보통', sodium: '낮음', tip: '식후 비타민을 채워주는 상큼한 과일!' },
+        { id: 'h_water', name: '생수', emoji: '💧', group: 'snack', kcal: 0, protein: '없음', sugar: '없음', sodium: '없음', tip: '식사와 함께 가장 좋은 수분 섭취!' }
+      ],
+
+      homeEvents: [
+        { id: 'ev_h1', text: '⚠️ 돌발 상황: 시금치나물이 다 떨어져 "채소 반찬이 부족합니다!" 다른 채소를 찾아보세요!', soldOutIds: ['h_spinach'] },
+        { id: 'ev_h2', text: '⚠️ 돌발 상황: 냉동실에 "생선이 품절되었습니다!" 다른 단백질 반찬을 선택하세요!', soldOutIds: ['h_fish'] },
+        { id: 'ev_h3', text: '⏰ 돌발 상황: 학원 숙제가 많아서 "요리 시간이 부족합니다!" 빠르게 차릴 수 있는 조합을 골라요!', soldOutIds: [] },
+        { id: 'ev_h4', text: '⚠️ 돌발 상황: "냉장고 재료가 일부 부족합니다!" (소불고기·시금치 품절)', soldOutIds: ['h_bulgogi', 'h_spinach'] }
+      ],
+
+      // 6. STAGE 3-B: 편의점 서바이벌 상품 목록 (예산 7,000원)
+      storeFoods: [
+        {
+          id: 's_samgak', name: '참치마요 삼각김밥', emoji: '🍙', group: 'grain', price: 1300,
+          serving: '1개(110g)', kcal: 215, protein: '5g', sugar: '2g', sodium: '420mg',
+          sugarLevel: '낮음', sodiumLevel: '보통', tip: '간편한 주식! 채소나 단백질을 추가하면 완벽해요.'
+        },
+        {
+          id: 's_gimbap', name: '채소듬뿍 줄김밥', emoji: '🍣', group: 'grain', price: 3200,
+          serving: '1줄(230g)', kcal: 360, protein: '11g', sugar: '4g', sodium: '780mg',
+          sugarLevel: '낮음', sodiumLevel: '보통', tip: '밥·단백질·채소가 골고루 들어간 든든한 메뉴!'
+        },
+        {
+          id: 's_sandwich', name: '에그햄 샌드위치', emoji: '🥪', group: 'grain', price: 2900,
+          serving: '1개(165g)', kcal: 340, protein: '13g', sugar: '7g', sodium: '610mg',
+          sugarLevel: '보통', sodiumLevel: '보통', tip: '빵과 달걀이 함께 들어있어요. 우유나 과일과 찰떡!'
+        },
+        {
+          id: 's_egg', name: '감동 삶은달걀(2입)', emoji: '🥚', group: 'protein', price: 2200,
+          serving: '2개(100g)', kcal: 140, protein: '12g', sugar: '0g', sodium: '180mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '편의점 최고의 가성비 단백질 보충템!'
+        },
+        {
+          id: 's_chicken', name: '훈제 닭가슴살', emoji: '🍗', group: 'protein', price: 2600,
+          serving: '1팩(100g)', kcal: 125, protein: '23g', sugar: '1g', sodium: '320mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '단백질이 매우 풍부하고 나트륨도 비교적 낮아요.'
+        },
+        {
+          id: 's_salad', name: '싱싱 그린 샐러드', emoji: '🥗', group: 'veggie', price: 2500,
+          serving: '1팩(120g)', kcal: 85, protein: '2g', sugar: '4g', sodium: '150mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '편의점에서 부족하기 쉬운 채소를 한 번에 해결!'
+        },
+        {
+          id: 's_cupnoodle', name: '매콤 컵라면(소)', emoji: '🍜', group: 'grain', price: 1150,
+          serving: '1개(65g)', kcal: 290, protein: '5g', sugar: '3g', sodium: '1080mg',
+          sugarLevel: '낮음', sodiumLevel: '매우 높음', tip: '나트륨이 높아요! 국물을 남기고 채소·달걀과 함께 먹어요.'
+        },
+        {
+          id: 's_sausage', name: '후랑크 소시지바', emoji: '🌭', group: 'protein', price: 2000,
+          serving: '1개(80g)', kcal: 210, protein: '9g', sugar: '3g', sodium: '590mg',
+          sugarLevel: '낮음', sodiumLevel: '높음', tip: '나트륨이 다소 높으니 다른 짠 음식과 겹치지 않게 해요.'
+        },
+        {
+          id: 's_banana', name: '스위트 바나나(2입)', emoji: '🍌', group: 'fruit', price: 1500,
+          serving: '2개(180g)', kcal: 160, protein: '2g', sugar: '22g', sodium: '2mg',
+          sugarLevel: '보통', sodiumLevel: '낮음', tip: '천연 당분과 칼륨이 풍부한 건강 간식!'
+        },
+        {
+          id: 's_fruitcup', name: '조각 과일컵', emoji: '🍓', group: 'fruit', price: 2400,
+          serving: '1컵(130g)', kcal: 70, protein: '1g', sugar: '13g', sodium: '5mg',
+          sugarLevel: '보통', sodiumLevel: '낮음', tip: '비타민 충전! 샐러드가 없을 때 훌륭한 대안이에요.'
+        },
+        {
+          id: 's_milk', name: '고칼슘 흰우유', emoji: '🥛', group: 'dairy', price: 1200,
+          serving: '1팩(200ml)', kcal: 130, protein: '6g', sugar: '9g', sodium: '100mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '첨가당 없는 흰 우유로 칼슘과 단백질 UP!'
+        },
+        {
+          id: 's_soymilk', name: '담백한 두유', emoji: '🧃', group: 'dairy', price: 1100,
+          serving: '1팩(190ml)', kcal: 115, protein: '7g', sugar: '6g', sodium: '110mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '식물성 단백질이 풍부한 든든한 음료!'
+        },
+        {
+          id: 's_water', name: '미네랄 생수', emoji: '💧', group: 'snack', price: 800,
+          serving: '1병(500ml)', kcal: 0, protein: '0g', sugar: '0g', sodium: '0mg',
+          sugarLevel: '낮음', sodiumLevel: '낮음', tip: '당류 0g! 가장 건강한 수분 보충 선택!'
+        },
+        {
+          id: 's_soda', name: '달콤 탄산음료', emoji: '🥤', group: 'snack', price: 1500,
+          serving: '1캔(250ml)', kcal: 112, protein: '0g', sugar: '27g', sodium: '15mg',
+          sugarLevel: '매우 높음', sodiumLevel: '낮음', tip: '작은 캔 하나에 당류 27g! 영양표시를 꼭 확인해 보세요.'
+        }
+      ],
+
+      storeEvents: [
+        { id: 'ev_s1', text: '⚠️ 돌발 상황: 방금 다 팔려서 "샐러드가 품절되었습니다!" 과일컵 등으로 채워보세요!', soldOutIds: ['s_salad'], budget: 7000 },
+        { id: 'ev_s2', text: '💸 돌발 상황: 주머니를 보니 "1,000원이 부족합니다!" 오늘 예산은 6,000원입니다!', soldOutIds: [], budget: 6000 },
+        { id: 'ev_s3', text: '⚠️ 돌발 상황: "오늘은 삶은 달걀이 모두 팔렸습니다!" 두유나 닭가슴살을 활용해 보세요!', soldOutIds: ['s_egg'], budget: 7000 },
+        { id: 'ev_s4', text: '🔍 탐정 미션: "비슷한 상품 두 개의 영양표시(🔍)를 비교해 보세요!"', soldOutIds: [], budget: 7000 },
+        { id: 'ev_s5', text: '😈 몬스터 유혹: "달콤짭짤 몬스터가 탄산음료를 추천합니다!" 영양표시로 당류를 확인해 물리치세요!', soldOutIds: [], budget: 7000 }
+      ],
+
+      // 7. 집밥 경로 선택 시 보너스 영양 탐정 퀴즈
+      homeDetectiveQuiz: {
+        question: '🔍 [보너스 영양 탐정 미션] 집밥 경로를 선택했군요! 다음 중 가공식품 뒷면의 "영양성분표"를 볼 때 성장기 중학생이 특히 주의 깊게 비교해야 할 두 가지는 무엇일까요?',
+        options: [
+          { text: '1) 포장의 캐릭터 크기와 유통기한 글씨체', correct: false },
+          { text: '2) 당류(설탕 등)와 나트륨(짠맛) 함량', correct: true },
+          { text: '3) 바코드 숫자의 개수와 제조 공장 위치', correct: false }
+        ],
+        explanation: '정답! 영양성분표에서 1회 제공량 기준의 당류, 나트륨, 단백질, 열량을 비교하면 훨씬 건강한 간식과 식사를 고를 수 있습니다.'
+      },
+
+      // 8. 히든 엔딩 실천 다짐 선택지
+      pledges: [
+        '🌅 아침식사 거르지 않고 조금이라도 챙겨 먹기',
+        '🥬 매끼 채소 반찬이나 과일 한 가지 이상 함께 먹기',
+        '💧 단 음료 대신 물이나 흰 우유 자주 마시기',
+        '🍱 편식하지 않고 6가지 식품군 골고루 먹기',
+        '🔍 편의점·마트에서 영양표시(당류·나트륨) 확인하기'
+      ]
+    };
+
+    /**
+     * =========================================================================
+     * [사운드 엔진 - Web Audio API]
+     * 별도 MP3 파일 없이 브라우저 자체 신시사이저로 효과음 생성
+     * =========================================================================
+     */
+    const SoundFX = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+      },
+      play(type) {
+        if (!state.soundOn) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        if (type === 'pop') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(780, now + 0.09);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'hit') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(280, now);
+          osc.frequency.exponentialRampToValueAtTime(90, now + 0.25);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+          osc.start(now);
+          osc.stop(now + 0.26);
+        } else if (type === 'win') {
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const o = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            o.type = 'triangle';
+            o.frequency.setValueAtTime(freq, now + idx * 0.1);
+            g.gain.setValueAtTime(0.16, now + idx * 0.1);
+            g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.1 + 0.25);
+            o.connect(g);
+            g.connect(this.ctx.destination);
+            o.start(now + idx * 0.1);
+            o.stop(now + idx * 0.1 + 0.25);
+          });
+        } else if (type === 'fail') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.35);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        }
+      }
+    };
+
+    /**
+     * =========================================================================
+     * [게임 상태 관리 & localStorage 자동 저장]
+     * =========================================================================
+     */
+    const STORAGE_KEY = 'diet_survival_g6_save_v1';
+
+    const defaultState = () => ({
+      screen: 'intro', // intro | stage1 | stage2 | stage3_choice | stage3_home | stage3_store | ending
+      soundOn: true,
+      fastMode: false,
+      badges: [], // ['breakfast_keeper', 'balance_master', 'nutrition_detective']
+      // 스테이지 1
+      s1Tray: [],
+      s1Event: null,
+      s1Hp: 3,
+      s1Cleared: false,
+      // 스테이지 3 공통
+      dinnerPath: null, // 'home' | 'store'
+      // 스테이지 3-A (집밥)
+      homeTray: [],
+      homeEvent: null,
+      homeHp: 3,
+      homeCleared: false,
+      homeQuizSolved: false,
+      // 스테이지 3-B (편의점)
+      storeCart: [],
+      storeEvent: null,
+      storeHp: 3,
+      storeCleared: false,
+      inspectedIds: [], // 돋보기 확인한 상품 ID 목록
+      // 엔딩
+      selectedPledge: ''
+    });
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          return { ...defaultState(), ...JSON.parse(raw) };
+        }
+      } catch (e) {}
+      return defaultState();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+      renderHeader();
+    }
+
+    function resetGame() {
+      stopFireworks();
+      const keepSound = state.soundOn;
+      state = defaultState();
+      state.soundOn = keepSound;
+      saveState();
+      closeModal();
+      render();
+    }
+
+    function confirmReset() {
+      showModal(`
+        <h2 style="margin-top:0;">🔄 처음부터 다시 시작할까요?</h2>
+        <p style="color:#475569; line-height:1.6;">현재까지 모은 배지와 식단 진행 기록이 초기화됩니다.</p>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:20px;">
+          <button class="btn btn-outline" onclick="closeModal()">취소</button>
+          <button class="btn btn-warning" onclick="resetGame()">네, 처음부터 할게요</button>
+        </div>
+      `);
+    }
+
+    function toggleSound() {
+      state.soundOn = !state.soundOn;
+      if (state.soundOn) SoundFX.play('pop');
+      saveState();
+      renderHeader();
+    }
+
+    function toggleFastMode() {
+      state.fastMode = !state.fastMode;
+      SoundFX.play('pop');
+      saveState();
+      renderHeader();
+    }
+
+    function awardBadge(badgeId) {
+      if (!state.badges.includes(badgeId)) {
+        state.badges.push(badgeId);
+        saveState();
+      }
+    }
+
+    /**
+     * =========================================================================
+     * [핵심 판정 엔진: 몬스터 HP 3칸 차감 로직]
+     * 단순히 음식을 많이 담는 것이 아니라, 식단 결함이 해결될 때만 HP 차감!
+     * =========================================================================
+     */
+    function evaluateBreakfast(trayIds) {
+      const items = trayIds.map(id => GAME_CONFIG.breakfastFoods.find(f => f.id === id)).filter(Boolean);
+      const groups = new Set(items.map(i => i.group));
+      const hasGrain = groups.has('grain');
+      const hasProteinOrDairy = groups.has('protein') || groups.has('dairy');
+      const hasProduce = groups.has('fruit') || groups.has('veggie');
+      const highSugarCount = items.filter(i => i.sugar === '매우 높음').length;
+      const onlySnack = items.length > 0 && items.every(i => i.group === 'snack');
+
+      // 3가지 핵심 방어선(각 1 HP씩 감소)
+      const criteria = [
+        {
+          passed: items.length >= 2 && !onlySnack && hasGrain,
+          passMsg: '① 아침을 거르지 않고 든든한 곡류 에너지를 챙겼어요! (HP -1)',
+          failHint: '아침 빈속을 깨워줄 곡류(밥, 식빵, 시리얼)가 필요해요!'
+        },
+        {
+          passed: hasProteinOrDairy,
+          passMsg: '② 성장기 집중력을 높여주는 단백질/우유군을 조합했어요! (HP -1)',
+          failHint: '달걀, 두부, 우유 중 하나를 추가해 단백질·칼슘을 보충해 보세요!'
+        },
+        {
+          passed: hasProduce && highSugarCount <= 1,
+          passMsg: '③ 상큼한 채소/과일을 더하고 단 음식 의존을 줄였어요! (HP -1)',
+          failHint: highSugarCount > 1
+            ? '단 음료나 도넛 비중이 높아요! 물이나 우유·과일로 균형을 맞춰 보세요.'
+            : '비타민을 채워줄 과일(바나나, 사과)이나 채소(방울토마토, 김)를 더해 보세요!'
+        }
+      ];
+
+      const passedCount = criteria.filter(c => c.passed).length;
+      const remainingHp = Math.max(0, 3 - passedCount);
+      return { items, groups, criteria, passedCount, remainingHp };
+    }
+
+    function evaluateHomeDinner(trayIds) {
+      const items = trayIds.map(id => GAME_CONFIG.homeFoods.find(f => f.id === id)).filter(Boolean);
+      const groups = new Set(items.map(i => i.group));
+      const hasGrain = groups.has('grain');
+      const hasProtein = groups.has('protein');
+      const hasVeggieOrFruit = groups.has('veggie') || groups.has('fruit');
+      const highSodiumCount = items.filter(i => i.sodium === '높음').length;
+      const distinctCount = new Set(items.map(i => i.id)).size;
+
+      const criteria = [
+        {
+          passed: hasGrain && distinctCount >= 3,
+          passMsg: '① 밥과 여러 반찬을 조화롭게 구성해 편식을 막았어요! (HP -1)',
+          failHint: '밥(곡류)을 포함해 서로 다른 반찬 3가지 이상으로 식판을 채워 보세요!'
+        },
+        {
+          passed: hasProtein,
+          passMsg: '② 튼튼한 몸을 만드는 단백질 반찬을 챙겼어요! (HP -1)',
+          failHint: '달걀말이, 두부구이, 생선구이, 불고기 등 단백질 반찬을 추가해 보세요!'
+        },
+        {
+          passed: hasVeggieOrFruit && highSodiumCount <= 1,
+          passMsg: '③ 채소·과일을 충분히 곁들이고 짠 반찬 균형을 맞췄어요! (HP -1)',
+          failHint: highSodiumCount > 1
+            ? '김치·햄·소시지 등 짠 반찬이 겹쳤어요! 나물이나 두부, 물로 염분 균형을 맞춰 보세요.'
+            : '시금치나물, 오이무침, 국 건더기 또는 과일을 추가해 식이섬유와 비타민을 채워 보세요!'
+        }
+      ];
+
+      const passedCount = criteria.filter(c => c.passed).length;
+      const remainingHp = Math.max(0, 3 - passedCount);
+      return { items, groups, criteria, passedCount, remainingHp };
+    }
+
+    function evaluateStoreDinner(cartIds, inspectedIds, budgetLimit) {
+      const items = cartIds.map(id => GAME_CONFIG.storeFoods.find(f => f.id === id)).filter(Boolean);
+      const totalCost = items.reduce((sum, i) => sum + i.price, 0);
+      const withinBudget = totalCost <= budgetLimit && items.length > 0;
+
+      const groups = new Set(items.map(i => i.group));
+      const hasGrain = groups.has('grain');
+      const hasProteinOrDairy = groups.has('protein') || groups.has('dairy');
+      const hasVeggieOrFruit = groups.has('veggie') || groups.has('fruit');
+
+      const highSugarOrSodium = items.filter(i => i.sugarLevel === '매우 높음' || i.sodiumLevel === '매우 높음').length;
+      const inspectedCount = inspectedIds.length;
+
+      const criteria = [
+        {
+          passed: withinBudget && hasGrain && hasProteinOrDairy,
+          passMsg: `① 예산(${budgetLimit.toLocaleString()}원) 안에서 주식과 단백질을 알뜰하게 챙겼어요! (HP -1)`,
+          failHint: !withinBudget
+            ? `예산(${budgetLimit.toLocaleString()}원)을 초과했거나 장바구니가 비어 있어요!`
+            : '삼각김밥·김밥·샌드위치 같은 주식과 달걀·닭가슴살·우유·두유를 조합해 보세요!'
+        },
+        {
+          passed: hasVeggieOrFruit && highSugarOrSodium === 0,
+          passMsg: '② 채소/과일을 챙기고 고당류·고나트륨 식품 의존을 피했어요! (HP -1)',
+          failHint: highSugarOrSodium > 0
+            ? '탄산음료(당류 높음)나 컵라면(나트륨 높음) 대신 물·우유·김밥·샐러드로 바꾸면 훨씬 건강해요!'
+            : '편의점에서 놓치기 쉬운 샐러드, 바나나, 과일컵 중 하나를 꼭 담아 보세요!'
+        },
+        {
+          passed: inspectedCount >= 2,
+          passMsg: `③ 돋보기(🔍)로 상품 ${inspectedCount}개의 영양표시를 꼼꼼히 확인했어요! (HP -1)`,
+          failHint: '상품 카드의 [🔍 영양표시] 버튼을 눌러 최소 2개 이상의 당류·나트륨을 비교해 보세요!'
+        }
+      ];
+
+      const passedCount = criteria.filter(c => c.passed).length;
+      const remainingHp = Math.max(0, 3 - passedCount);
+      return { items, totalCost, withinBudget, groups, criteria, passedCount, remainingHp };
+    }
+
+    /**
+     * =========================================================================
+     * [렌더링 함수들]
+     * =========================================================================
+     */
+    function renderHeader() {
+      const badgeContainer = document.getElementById('headerBadges');
+      badgeContainer.innerHTML = Object.values(GAME_CONFIG.badges).map(b => {
+        const earned = state.badges.includes(b.id);
+        return `<span class="mini-badge ${earned ? 'earned' : ''}">${b.icon} ${b.name}</span>`;
+      }).join('');
+
+      document.getElementById('soundToggleBtn').textContent = state.soundOn ? '🔊 효과음 ON' : '🔇 효과음 OFF';
+      document.getElementById('skipToggleBtn').textContent = state.fastMode ? '⚡ 빠른연출 ON' : '⏩ 연출 보통';
+    }
+
+    function render() {
+      renderHeader();
+      const main = document.getElementById('mainContainer');
+
+      switch (state.screen) {
+        case 'intro':
+          main.innerHTML = renderIntro();
+          break;
+        case 'stage1':
+          main.innerHTML = renderStage1();
+          break;
+        case 'stage2':
+          main.innerHTML = renderStage2();
+          break;
+        case 'stage3_choice':
+          main.innerHTML = renderStage3Choice();
+          break;
+        case 'stage3_home':
+          main.innerHTML = renderStage3Home();
+          break;
+        case 'stage3_store':
+          main.innerHTML = renderStage3Store();
+          break;
+        case 'ending':
+          main.innerHTML = renderEnding();
+          break;
+      }
+    }
+
+    /* 0. 오프닝 화면 */
+    function renderIntro() {
+      const hasProgress = state.screen !== 'intro' || state.badges.length > 0 || state.s1Tray.length > 0;
+      return `
+        <div class="hero-card">
+          <div class="hero-tag">초등학교 6학년 영양·식생활 서바이벌</div>
+          <h1 class="hero-title">중1 식생활 서바이벌<br><span style="color:#2563eb;">건강한 하루를 완성하라!</span></h1>
+          <p class="hero-sub">중학생이 되어 스스로 식사를 선택해야 하는 하루!<br>건강 방해 몬스터들을 물리치고 3개의 배지를 모아보세요.</p>
+          
+          <div class="story-box">
+            <strong>📖 프롤로그 : 중1 첫 등교와 학원 데이</strong><br><br>
+            드디어 중학생이 된 나! 오늘은 아침 일찍 등교하고, 방과 후에는 학원까지 가야 하는 바쁜 날이다.<br>
+            점심은 학교급식으로 든든하게 해결되지만, <strong>바쁜 아침</strong>과 <strong>학원 가기 전 저녁</strong>은 내가 직접 골라야 한다!<br>
+            그때, 식습관을 방해하는 <strong>건강 방해 몬스터</strong>들이 나타나 유혹하기 시작하는데...
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:18px;">
+            <span class="group-chip active">🌅 배지 1: 아침밥 지킴이</span>
+            <span class="group-chip active">🥗 배지 2: 균형 식판 달인</span>
+            <span class="group-chip active">🔍 배지 3: 영양 탐정</span>
+          </div>
+
+          <button class="btn btn-primary" style="font-size:1.15rem; padding:16px 32px;" onclick="startStage1()">
+            🚀 서바이벌 시작하기!
+          </button>
+        </div>
+      `;
+    }
+
+    function startStage1() {
+      SoundFX.play('pop');
+      if (!state.s1Event) {
+        const evList = GAME_CONFIG.breakfastEvents;
+        state.s1Event = evList[Math.floor(Math.random() * evList.length)];
+      }
+      state.screen = 'stage1';
+      saveState();
+      render();
+    }
+
+    /* 1. STAGE 1 : 아침밥 챌린지 */
+    function renderStage1() {
+      const m = GAME_CONFIG.monsters.breakfast;
+      const ev = state.s1Event || GAME_CONFIG.breakfastEvents[0];
+      const evalRes = evaluateBreakfast(state.s1Tray);
+
+      return `
+        <div class="monster-arena">
+          <div class="monster-info">
+            <div class="monster-avatar" id="monsterAvatar">${m.emoji}</div>
+            <div>
+              <div class="monster-name">STAGE 1 · ${m.name}</div>
+              <div class="monster-quote">${state.s1Cleared ? m.defeatQuote : m.taunt}</div>
+            </div>
+          </div>
+          <div class="hp-box">
+            <div class="hp-label">몬스터 체력 (HP ${state.s1Hp} / ${m.maxHp})</div>
+            <div class="hp-bars">
+              ${[1, 2, 3].map(n => `<div class="hp-cell ${n > state.s1Hp ? 'lost' : ''}"></div>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="event-banner">
+          <span>🌅 <strong>오전 7:30</strong> · 늦잠을 자서 등교까지 20분 남았다! | ${ev.text}</span>
+          <button class="icon-btn" style="background:#b45309; border:none;" onclick="rerollBreakfastEvent()">🎲 다른 상황</button>
+        </div>
+
+        <div class="status-strip">
+          <div class="stat-card">
+            <span class="stat-title">현재 담긴 식품군</span>
+            <div class="group-chips">
+              ${Object.values(GAME_CONFIG.foodGroups).map(g => `
+                <span class="group-chip ${evalRes.groups.has(g.id) ? 'active' : ''}">${g.emoji} ${g.name}</span>
+              `).join('')}
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">공략 힌트</span>
+            <span class="stat-value" style="font-size:0.9rem; color:#0369a1;">
+              곡류(에너지) + 단백질/우유 + 과일/채소 조합으로 몬스터 HP 3칸을 깎아보세요!
+            </span>
+          </div>
+        </div>
+
+        <!-- 내 아침 식판 -->
+        <div class="tray-section">
+          <div class="tray-header">
+            <strong>🍽️ 나의 아침 식판 (${evalRes.items.length}/5개 선택)</strong>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearStage1Tray()">비우기</button>
+              <button class="btn btn-primary" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleBreakfast()">
+                ⚔️ 아침 식단으로 대결하기!
+              </button>
+            </div>
+          </div>
+          <div class="tray-items">
+            ${evalRes.items.length === 0
+              ? '<span style="color:#94a3b8;">아래에서 아침에 먹을 음식을 터치해 담아보세요! (최대 5개)</span>'
+              : evalRes.items.map((item, idx) => `
+                <div class="tray-item" onclick="removeS1Item(${idx})">
+                  <span>${item.emoji} ${item.name}</span>
+                  <span class="tray-remove">✕</span>
+                </div>
+              `).join('')}
+          </div>
+        </div>
+
+        <!-- 음식 선택 목록 -->
+        <div class="food-grid">
+          ${GAME_CONFIG.breakfastFoods.map(food => {
+            const isSoldOut = ev.soldOutIds.includes(food.id);
+            const count = state.s1Tray.filter(id => id === food.id).length;
+            const grp = GAME_CONFIG.foodGroups[food.group];
+            return `
+              <div class="food-card ${isSoldOut ? 'sold-out' : ''} ${count > 0 ? 'in-tray' : ''}">
+                <div>
+                  <div class="food-top">
+                    <span class="food-emoji">${food.emoji}</span>
+                    <button class="inspect-btn" onclick="inspectSimpleFood('breakfast', '${food.id}')">🔍 정보</button>
+                  </div>
+                  <div class="food-name" style="margin-top:6px;">${food.name}</div>
+                  <div class="food-meta">
+                    <span>${grp.emoji} ${grp.name}</span>
+                    <span>당:${food.sugar}</span>
+                  </div>
+                </div>
+                <button class="food-add-btn" ${isSoldOut || state.s1Tray.length >= 5 ? 'disabled' : ''} onclick="addS1Item('${food.id}')">
+                  ${isSoldOut ? '품절됨' : count > 0 ? `+ 담기 (${count}개)` : '+ 식판에 담기'}
+                </button>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function rerollBreakfastEvent() {
+      SoundFX.play('pop');
+      const list = GAME_CONFIG.breakfastEvents;
+      state.s1Event = list[Math.floor(Math.random() * list.length)];
+      state.s1Tray = state.s1Tray.filter(id => !state.s1Event.soldOutIds.includes(id));
+      saveState();
+      render();
+    }
+
+    function addS1Item(id) {
+      if (state.s1Tray.length >= 5) return;
+      SoundFX.play('pop');
+      state.s1Tray.push(id);
+      saveState();
+      render();
+    }
+
+    function removeS1Item(idx) {
+      SoundFX.play('pop');
+      state.s1Tray.splice(idx, 1);
+      saveState();
+      render();
+    }
+
+    function clearStage1Tray() {
+      SoundFX.play('pop');
+      state.s1Tray = [];
+      saveState();
+      render();
+    }
+
+    function battleBreakfast() {
+      const res = evaluateBreakfast(state.s1Tray);
+      state.s1Hp = res.remainingHp;
+      saveState();
+
+      if (res.passedCount > 0) {
+        SoundFX.play('hit');
+      } else {
+        SoundFX.play('fail');
+      }
+
+      if (res.remainingHp === 0) {
+        state.s1Cleared = true;
+        awardBadge('breakfast_keeper');
+        SoundFX.play('win');
+        render();
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3.5rem;">🎉🌅</div>
+            <h2 style="margin:8px 0; color:#059669;">아침잠 몬스터 격파 성공!</h2>
+            <p style="font-weight:700; color:#1e293b;">[🌅 아침밥 지킴이 배지]를 획득했습니다!</p>
+            <div class="story-box" style="font-size:0.92rem; margin:14px 0;">
+              ${res.criteria.map(c => `<div style="margin-bottom:6px;">✅ ${c.passMsg}</div>`).join('')}
+            </div>
+            <button class="btn btn-success" style="width:100%;" onclick="closeModal(); goToStage2();">
+              오후 12:30 학교급식 시간으로 이동 ▶
+            </button>
+          </div>
+        `);
+      } else {
+        render();
+        const avatar = document.getElementById('monsterAvatar');
+        if (avatar) avatar.classList.add('shake');
+
+        const failedItems = res.criteria.filter(c => !c.passed);
+        const passedItems = res.criteria.filter(c => c.passed);
+
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3rem;">😴💥</div>
+            <h2 style="margin:8px 0; color:#dc2626;">아직 몬스터 체력이 ${res.remainingHp}칸 남았어요!</h2>
+            <p style="color:#475569; font-size:0.95rem;">괜찮아요! 지금 식판을 그대로 유지한 채 부족한 부분만 보완해 보세요.</p>
+            <div class="story-box" style="font-size:0.92rem; margin:14px 0;">
+              ${passedItems.map(c => `<div style="color:#059669; margin-bottom:6px;">✅ ${c.passMsg}</div>`).join('')}
+              ${failedItems.map(c => `<div style="color:#b45309; margin-bottom:6px;">💡 <strong>보완 힌트:</strong> ${c.failHint}</div>`).join('')}
+            </div>
+            <button class="btn btn-warning" style="width:100%;" onclick="closeModal()">
+              🔄 부활 미션: 직전 식판 수정하기
+            </button>
+          </div>
+        `);
+      }
+    }
+
+    /* 2. STAGE 2 : 학교급식 스토리 전환 */
+    function goToStage2() {
+      SoundFX.play('pop');
+      state.screen = 'stage2';
+      saveState();
+      render();
+    }
+
+    function renderStage2() {
+      return `
+        <div class="hero-card">
+          <div class="hero-tag">STAGE 2 · 오후 12:30 학교급식</div>
+          <div style="font-size:4rem; margin:10px 0;">🏫🍱😋</div>
+          <h2 class="hero-title">영양선생님이 설계한 균형 잡힌 학교급식!</h2>
+          <div class="story-box">
+            <strong>점심시간은 학교급식으로 해결!</strong><br><br>
+            따뜻한 잡곡밥, 단백질 반찬, 신선한 채소 나물, 제철 과일까지 알록달록한 학교급식을 남기지 않고 맛있게 먹었다!<br>
+            든든한 점심 덕분에 오후 수업도 집중해서 마치고, 이제 <strong>학원 가기 전 저녁 시간</strong>이 다가왔다.
+          </div>
+          <button class="btn btn-primary" style="font-size:1.1rem;" onclick="goToStage3Choice()">
+            오후 6:30 저녁 식사 선택하러 가기 ▶
+          </button>
+        </div>
+      `;
+    }
+
+    /* 3. STAGE 3 경로 선택 (집밥 vs 편의점) */
+    function goToStage3Choice() {
+      SoundFX.play('pop');
+      state.screen = 'stage3_choice';
+      saveState();
+      render();
+    }
+
+    function renderStage3Choice() {
+      return `
+        <div class="hero-card">
+          <div class="hero-tag">STAGE 3 · 오후 6:30 저녁 식사 서바이벌</div>
+          <h2 class="hero-title">학원 가기 전, 오늘 저녁은 어디서 해결할까?</h2>
+          <p class="hero-sub">어떤 경로를 선택하든 <strong>배지 3종(아침밥·균형식판·영양탐정)</strong>을 모두 모을 수 있어요!</p>
+
+          <div class="path-grid">
+            <div class="path-card" onclick="selectDinnerPath('home')">
+              <div style="font-size:3.5rem; margin-bottom:10px;">🏠🍳</div>
+              <h3 style="margin:0 0 8px; font-size:1.3rem;">A경로 : 집밥 챌린지</h3>
+              <p style="color:#475569; font-size:0.95rem; line-height:1.5;">
+                냉장고 문을 열고 밥과 반찬을 조합해<br><strong>균형 실종 몬스터</strong>를 물리치자!<br>
+                <span style="color:#7c3aed; font-weight:700;">(+ 보너스 영양 탐정 퀴즈 포함)</span>
+              </p>
+              <button class="btn btn-success" style="width:100%; margin-top:10px;">집밥으로 도전하기</button>
+            </div>
+
+            <div class="path-card" onclick="selectDinnerPath('store')">
+              <div style="font-size:3.5rem; margin-bottom:10px;">🏪🍙</div>
+              <h3 style="margin:0 0 8px; font-size:1.3rem;">B경로 : 편의점 서바이벌</h3>
+              <p style="color:#475569; font-size:0.95rem; line-height:1.5;">
+                제한된 예산 안에서 영양표시(🔍)를 확인해<br><strong>달콤짭짤 몬스터</strong>를 물리치자!<br>
+                <span style="color:#2563eb; font-weight:700;">(+ 실전 예산 & 영양표시 탐정 미션)</span>
+              </p>
+              <button class="btn btn-primary" style="width:100%; margin-top:10px;">편의점으로 도전하기</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectDinnerPath(path) {
+      SoundFX.play('pop');
+      state.dinnerPath = path;
+      if (path === 'home') {
+        if (!state.homeEvent) {
+          const list = GAME_CONFIG.homeEvents;
+          state.homeEvent = list[Math.floor(Math.random() * list.length)];
+        }
+        state.screen = 'stage3_home';
+      } else {
+        if (!state.storeEvent) {
+          const list = GAME_CONFIG.storeEvents;
+          state.storeEvent = list[Math.floor(Math.random() * list.length)];
+        }
+        state.screen = 'stage3_store';
+      }
+      saveState();
+      render();
+    }
+
+    /* 3-A. 집밥 챌린지 */
+    function renderStage3Home() {
+      const m = GAME_CONFIG.monsters.home;
+      const ev = state.homeEvent || GAME_CONFIG.homeEvents[0];
+      const evalRes = evaluateHomeDinner(state.homeTray);
+
+      return `
+        <div class="monster-arena">
+          <div class="monster-info">
+            <div class="monster-avatar" id="monsterAvatar">🍽️</div>
+            <div>
+              <div class="monster-name">STAGE 3-A · ${m.name}</div>
+              <div class="monster-quote">${state.homeCleared ? m.defeatQuote : m.taunt}</div>
+            </div>
+          </div>
+          <div class="hp-box">
+            <div class="hp-label">몬스터 체력 (HP ${state.homeHp} / ${m.maxHp})</div>
+            <div class="hp-bars">
+              ${[1, 2, 3].map(n => `<div class="hp-cell ${n > state.homeHp ? 'lost' : ''}"></div>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="event-banner">
+          <span>🏠 <strong>냉장고 앞</strong> · ${ev.text}</span>
+          <div style="display:flex; gap:6px;">
+            <button class="icon-btn" style="background:#475569; border:none;" onclick="goToStage3Choice()">↩ 경로 변경</button>
+            <button class="icon-btn" style="background:#b45309; border:none;" onclick="rerollHomeEvent()">🎲 다른 상황</button>
+          </div>
+        </div>
+
+        <div class="status-strip">
+          <div class="stat-card">
+            <span class="stat-title">현재 차린 식품군</span>
+            <div class="group-chips">
+              ${Object.values(GAME_CONFIG.foodGroups).map(g => `
+                <span class="group-chip ${evalRes.groups.has(g.id) ? 'active' : ''}">${g.emoji} ${g.name}</span>
+              `).join('')}
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">균형 식판 공략 팁</span>
+            <span class="stat-value" style="font-size:0.9rem; color:#059669;">
+              밥 + 단백질 반찬 + 채소/과일을 조합하고, 짠 반찬이 겹치지 않게 조절하세요!
+            </span>
+          </div>
+        </div>
+
+        <div class="tray-section">
+          <div class="tray-header">
+            <strong>🍱 나의 저녁 집밥 식판 (${evalRes.items.length}/5개 선택)</strong>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearHomeTray()">비우기</button>
+              <button class="btn btn-success" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleHomeDinner()">
+                ⚔️ 집밥 식판으로 대결하기!
+              </button>
+            </div>
+          </div>
+          <div class="tray-items">
+            ${evalRes.items.length === 0
+              ? '<span style="color:#94a3b8;">냉장고에서 밥과 반찬을 골라 식판에 담아보세요! (최대 5개)</span>'
+              : evalRes.items.map((item, idx) => `
+                <div class="tray-item" onclick="removeHomeItem(${idx})">
+                  <span>${item.emoji} ${item.name}</span>
+                  <span class="tray-remove">✕</span>
+                </div>
+              `).join('')}
+          </div>
+        </div>
+
+        <div class="food-grid">
+          ${GAME_CONFIG.homeFoods.map(food => {
+            const isSoldOut = ev.soldOutIds.includes(food.id);
+            const count = state.homeTray.filter(id => id === food.id).length;
+            const grp = GAME_CONFIG.foodGroups[food.group];
+            return `
+              <div class="food-card ${isSoldOut ? 'sold-out' : ''} ${count > 0 ? 'in-tray' : ''}">
+                <div>
+                  <div class="food-top">
+                    <span class="food-emoji">${food.emoji}</span>
+                    <button class="inspect-btn" onclick="inspectSimpleFood('home', '${food.id}')">🔍 정보</button>
+                  </div>
+                  <div class="food-name" style="margin-top:6px;">${food.name}</div>
+                  <div class="food-meta">
+                    <span>${grp.emoji} ${grp.name}</span>
+                    <span>나트륨:${food.sodium}</span>
+                  </div>
+                </div>
+                <button class="food-add-btn" ${isSoldOut || state.homeTray.length >= 5 ? 'disabled' : ''} onclick="addHomeItem('${food.id}')">
+                  ${isSoldOut ? '재료 없음' : count > 0 ? `+ 담기 (${count}개)` : '+ 식판에 담기'}
+                </button>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function rerollHomeEvent() {
+      SoundFX.play('pop');
+      const list = GAME_CONFIG.homeEvents;
+      state.homeEvent = list[Math.floor(Math.random() * list.length)];
+      state.homeTray = state.homeTray.filter(id => !state.homeEvent.soldOutIds.includes(id));
+      saveState();
+      render();
+    }
+
+    function addHomeItem(id) {
+      if (state.homeTray.length >= 5) return;
+      SoundFX.play('pop');
+      state.homeTray.push(id);
+      saveState();
+      render();
+    }
+
+    function removeHomeItem(idx) {
+      SoundFX.play('pop');
+      state.homeTray.splice(idx, 1);
+      saveState();
+      render();
+    }
+
+    function clearHomeTray() {
+      SoundFX.play('pop');
+      state.homeTray = [];
+      saveState();
+      render();
+    }
+
+    function battleHomeDinner() {
+      const res = evaluateHomeDinner(state.homeTray);
+      state.homeHp = res.remainingHp;
+      saveState();
+
+      if (res.passedCount > 0) SoundFX.play('hit');
+      else SoundFX.play('fail');
+
+      if (res.remainingHp === 0) {
+        state.homeCleared = true;
+        awardBadge('balance_master');
+        SoundFX.play('win');
+        render();
+        showHomeBonusQuiz(res);
+      } else {
+        render();
+        const avatar = document.getElementById('monsterAvatar');
+        if (avatar) avatar.classList.add('shake');
+
+        const failedItems = res.criteria.filter(c => !c.passed);
+        const passedItems = res.criteria.filter(c => c.passed);
+
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3rem;">🍽️💥</div>
+            <h2 style="margin:8px 0; color:#dc2626;">균형 실종 몬스터 체력이 ${res.remainingHp}칸 남았어요!</h2>
+            <p style="color:#475569; font-size:0.95rem;">직전 식판에서 부족한 식품군만 보완하면 바로 물리칠 수 있어요!</p>
+            <div class="story-box" style="font-size:0.92rem; margin:14px 0;">
+              ${passedItems.map(c => `<div style="color:#059669; margin-bottom:6px;">✅ ${c.passMsg}</div>`).join('')}
+              ${failedItems.map(c => `<div style="color:#b45309; margin-bottom:6px;">💡 <strong>보완 힌트:</strong> ${c.failHint}</div>`).join('')}
+            </div>
+            <button class="btn btn-warning" style="width:100%;" onclick="closeModal()">
+              🔄 부활 미션: 직전 식판 수정하기
+            </button>
+          </div>
+        `);
+      }
+    }
+
+    function showHomeBonusQuiz(evalRes) {
+      const q = GAME_CONFIG.homeDetectiveQuiz;
+      showModal(`
+        <div style="text-align:center;">
+          <div style="font-size:3rem;">🎉🥗</div>
+          <h2 style="margin:6px 0; color:#059669;">균형 실종 몬스터 격파!</h2>
+          <p style="font-weight:700;">[🥗 균형 식판 달인 배지] 획득!</p>
+          <div class="story-box" style="font-size:0.92rem; margin:12px 0;">
+            <p style="margin-top:0; font-weight:800; color:#1d4ed8;">${q.question}</p>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              ${q.options.map((opt, i) => `
+                <button class="pledge-btn" onclick="answerHomeQuiz(${opt.correct})">${opt.text}</button>
+              `).join('')}
+            </div>
+          </div>
+          <button class="btn btn-outline" style="width:100%;" onclick="closeModal(); goToEnding();">
+            퀴즈 건너뛰고 결과 보기 ▶
+          </button>
+        </div>
+      `);
+    }
+
+    function answerHomeQuiz(isCorrect) {
+      const q = GAME_CONFIG.homeDetectiveQuiz;
+      if (isCorrect) {
+        SoundFX.play('win');
+        state.homeQuizSolved = true;
+        awardBadge('nutrition_detective');
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3.2rem;">🔍✨</div>
+            <h2 style="color:#2563eb;">보너스 미션 성공!</h2>
+            <p style="font-weight:800;">[🔍 영양 탐정 배지]까지 추가 획득했습니다!</p>
+            <div class="story-box" style="font-size:0.95rem;">${q.explanation}</div>
+            <button class="btn btn-primary" style="width:100%;" onclick="closeModal(); goToEnding();">
+              최종 엔딩 확인하기 🏆
+            </button>
+          </div>
+        `);
+      } else {
+        SoundFX.play('fail');
+        alert('아쉬워요! 다시 한 번 생각해 볼까요? 가공식품 뒷면에서 건강을 위해 꼭 확인해야 할 성분은 무엇일까요?');
+      }
+    }
+
+    /* 3-B. 편의점 서바이벌 */
+    function renderStage3Store() {
+      const m = GAME_CONFIG.monsters.store;
+      const ev = state.storeEvent || GAME_CONFIG.storeEvents[0];
+      const budgetLimit = ev.budget || 7000;
+      const evalRes = evaluateStoreDinner(state.storeCart, state.inspectedIds, budgetLimit);
+      const remainMoney = budgetLimit - evalRes.totalCost;
+
+      return `
+        <div class="monster-arena">
+          <div class="monster-info">
+            <div class="monster-avatar" id="monsterAvatar">${m.emoji}</div>
+            <div>
+              <div class="monster-name">STAGE 3-B · ${m.name}</div>
+              <div class="monster-quote">${state.storeCleared ? m.defeatQuote : m.taunt}</div>
+            </div>
+          </div>
+          <div class="hp-box">
+            <div class="hp-label">몬스터 체력 (HP ${state.storeHp} / ${m.maxHp})</div>
+            <div class="hp-bars">
+              ${[1, 2, 3].map(n => `<div class="hp-cell ${n > state.storeHp ? 'lost' : ''}"></div>`).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="event-banner">
+          <span>🏪 <strong>편의점 미션</strong> · ${ev.text}</span>
+          <div style="display:flex; gap:6px;">
+            <button class="icon-btn" style="background:#475569; border:none;" onclick="goToStage3Choice()">↩ 경로 변경</button>
+            <button class="icon-btn" style="background:#b45309; border:none;" onclick="rerollStoreEvent()">🎲 다른 상황</button>
+          </div>
+        </div>
+
+        <div class="status-strip">
+          <div class="stat-card">
+            <span class="stat-title">💰 편의점 예산 (${budgetLimit.toLocaleString()}원 한도)</span>
+            <span class="stat-value" style="color:${remainMoney < 0 ? '#dc2626' : '#059669'};">
+              사용: ${evalRes.totalCost.toLocaleString()}원 / 잔액: ${remainMoney.toLocaleString()}원
+            </span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">🔍 영양표시 탐정 미션</span>
+            <span class="stat-value" style="color:${state.inspectedIds.length >= 2 ? '#059669' : '#d97706'};">
+              확인한 상품: ${state.inspectedIds.length}개 / 최소 2개 비교
+            </span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">장바구니 식품군</span>
+            <div class="group-chips">
+              ${Object.values(GAME_CONFIG.foodGroups).map(g => `
+                <span class="group-chip ${evalRes.groups.has(g.id) ? 'active' : ''}">${g.emoji} ${g.name}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="tray-section">
+          <div class="tray-header">
+            <strong>🛒 편의점 장바구니 (${evalRes.items.length}/5개 선택)</strong>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-outline" style="min-height:40px; padding:8px 14px; font-size:0.9rem;" onclick="clearStoreCart()">비우기</button>
+              <button class="btn btn-primary" style="min-height:40px; padding:8px 18px; font-size:0.95rem;" onclick="battleStoreDinner()">
+                💳 계산하고 몬스터와 대결!
+              </button>
+            </div>
+          </div>
+          <div class="tray-items">
+            ${evalRes.items.length === 0
+              ? '<span style="color:#94a3b8;">예산 안에서 한 끼를 담고, 🔍 버튼으로 영양표시를 꼭 확인해 보세요!</span>'
+              : evalRes.items.map((item, idx) => `
+                <div class="tray-item" onclick="removeStoreItem(${idx})">
+                  <span>${item.emoji} ${item.name} (${item.price.toLocaleString()}원)</span>
+                  <span class="tray-remove">✕</span>
+                </div>
+              `).join('')}
+          </div>
+        </div>
+
+        <div class="food-grid">
+          ${GAME_CONFIG.storeFoods.map(food => {
+            const isSoldOut = ev.soldOutIds.includes(food.id);
+            const count = state.storeCart.filter(id => id === food.id).length;
+            const inspected = state.inspectedIds.includes(food.id);
+            const grp = GAME_CONFIG.foodGroups[food.group];
+            return `
+              <div class="food-card ${isSoldOut ? 'sold-out' : ''} ${count > 0 ? 'in-tray' : ''}">
+                <div>
+                  <div class="food-top">
+                    <span class="food-emoji">${food.emoji}</span>
+                    <button class="inspect-btn ${inspected ? 'checked' : ''}" onclick="inspectStoreFood('${food.id}')">
+                      ${inspected ? '✅ 확인됨' : '🔍 영양표시'}
+                    </button>
+                  </div>
+                  <div class="food-name" style="margin-top:6px;">${food.name}</div>
+                  <div class="food-meta">
+                    <span>${grp.emoji} ${grp.name}</span>
+                    <strong style="color:#0f172a;">${food.price.toLocaleString()}원</strong>
+                  </div>
+                </div>
+                <button class="food-add-btn" ${isSoldOut || state.storeCart.length >= 5 ? 'disabled' : ''} onclick="addStoreItem('${food.id}')">
+                  ${isSoldOut ? '품절됨' : count > 0 ? `+ 담기 (${count}개)` : '+ 장바구니 담기'}
+                </button>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function rerollStoreEvent() {
+      SoundFX.play('pop');
+      const list = GAME_CONFIG.storeEvents;
+      state.storeEvent = list[Math.floor(Math.random() * list.length)];
+      state.storeCart = state.storeCart.filter(id => !state.storeEvent.soldOutIds.includes(id));
+      saveState();
+      render();
+    }
+
+    function addStoreItem(id) {
+      if (state.storeCart.length >= 5) return;
+      SoundFX.play('pop');
+      state.storeCart.push(id);
+      saveState();
+      render();
+    }
+
+    function removeStoreItem(idx) {
+      SoundFX.play('pop');
+      state.storeCart.splice(idx, 1);
+      saveState();
+      render();
+    }
+
+    function clearStoreCart() {
+      SoundFX.play('pop');
+      state.storeCart = [];
+      saveState();
+      render();
+    }
+
+    function inspectStoreFood(id) {
+      SoundFX.play('pop');
+      const food = GAME_CONFIG.storeFoods.find(f => f.id === id);
+      if (!food) return;
+      if (!state.inspectedIds.includes(id)) {
+        state.inspectedIds.push(id);
+        saveState();
+        render();
+      }
+      showModal(`
+        <div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:2.5rem;">${food.emoji}</span>
+            <div>
+              <h3 style="margin:0;">${food.name} 영양성분표</h3>
+              <span style="font-size:0.85rem; color:#64748b;">가격: ${food.price.toLocaleString()}원 · 1회 제공량: ${food.serving}</span>
+            </div>
+          </div>
+          <table class="nutrition-table">
+            <tr><th>열량</th><td><strong>${food.kcal} kcal</strong></td></tr>
+            <tr><th>단백질</th><td><strong>${food.protein}</strong></td></tr>
+            <tr><th>당류</th><td><strong>${food.sugar}</strong> (${food.sugarLevel})</td></tr>
+            <tr><th>나트륨</th><td><strong>${food.sodium}</strong> (${food.sodiumLevel})</td></tr>
+          </table>
+          <div class="story-box" style="font-size:0.92rem; margin:10px 0;">
+            💡 <strong>영양 팁:</strong> ${food.tip}
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="closeModal()">확인 완료</button>
+        </div>
+      `);
+    }
+
+    function inspectSimpleFood(stage, id) {
+      SoundFX.play('pop');
+      const list = stage === 'breakfast' ? GAME_CONFIG.breakfastFoods : GAME_CONFIG.homeFoods;
+      const food = list.find(f => f.id === id);
+      if (!food) return;
+      const grp = GAME_CONFIG.foodGroups[food.group];
+      showModal(`
+        <div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:2.5rem;">${food.emoji}</span>
+            <div>
+              <h3 style="margin:0;">${food.name}</h3>
+              <span style="font-size:0.85rem; color:#64748b;">식품군: ${grp.emoji} ${grp.name}</span>
+            </div>
+          </div>
+          <table class="nutrition-table">
+            <tr><th>간이 열량</th><td>${food.kcal} kcal</td></tr>
+            <tr><th>단백질 수준</th><td>${food.protein}</td></tr>
+            <tr><th>당류 수준</th><td>${food.sugar}</td></tr>
+            <tr><th>나트륨 수준</th><td>${food.sodium}</td></tr>
+          </table>
+          <div class="story-box" style="font-size:0.92rem; margin:10px 0;">
+            💡 <strong>영양 팁:</strong> ${food.tip}
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="closeModal()">닫기</button>
+        </div>
+      `);
+    }
+
+    function battleStoreDinner() {
+      const budgetLimit = (state.storeEvent && state.storeEvent.budget) || 7000;
+      const res = evaluateStoreDinner(state.storeCart, state.inspectedIds, budgetLimit);
+      state.storeHp = res.remainingHp;
+      saveState();
+
+      if (res.passedCount > 0) SoundFX.play('hit');
+      else SoundFX.play('fail');
+
+      if (res.remainingHp === 0) {
+        state.storeCleared = true;
+        awardBadge('balance_master');
+        awardBadge('nutrition_detective');
+        SoundFX.play('win');
+        render();
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3.5rem;">🎉🔍</div>
+            <h2 style="margin:8px 0; color:#2563eb;">달콤짭짤 몬스터 격파 성공!</h2>
+            <p style="font-weight:700;">[🥗 균형 식판 달인] & [🔍 영양 탐정 배지]를 모두 획득했습니다!</p>
+            <div class="story-box" style="font-size:0.92rem; margin:14px 0;">
+              ${res.criteria.map(c => `<div style="margin-bottom:6px;">✅ ${c.passMsg}</div>`).join('')}
+            </div>
+            <button class="btn btn-primary" style="width:100%;" onclick="closeModal(); goToEnding();">
+              최종 엔딩 화면으로 이동 🏆
+            </button>
+          </div>
+        `);
+      } else {
+        render();
+        const avatar = document.getElementById('monsterAvatar');
+        if (avatar) avatar.classList.add('shake');
+
+        const failedItems = res.criteria.filter(c => !c.passed);
+        const passedItems = res.criteria.filter(c => c.passed);
+
+        showModal(`
+          <div style="text-align:center;">
+            <div style="font-size:3rem;">😈💥</div>
+            <h2 style="margin:8px 0; color:#dc2626;">달콤짭짤 몬스터 체력이 ${res.remainingHp}칸 남았어요!</h2>
+            <p style="color:#475569; font-size:0.95rem;">직전 장바구니 상태를 그대로 유지해 드렸어요. 부족한 조건만 보완해 보세요!</p>
+            <div class="story-box" style="font-size:0.92rem; margin:14px 0;">
+              ${passedItems.map(c => `<div style="color:#059669; margin-bottom:6px;">✅ ${c.passMsg}</div>`).join('')}
+              ${failedItems.map(c => `<div style="color:#b45309; margin-bottom:6px;">💡 <strong>보완 힌트:</strong> ${c.failHint}</div>`).join('')}
+            </div>
+            <button class="btn btn-warning" style="width:100%;" onclick="closeModal()">
+              🔄 부활 미션: 직전 장바구니 수정하기
+            </button>
+          </div>
+        `);
+      }
+    }
+
+    /* 4. 최종 엔딩 화면 (노멀 / 히든) */
+    function goToEnding() {
+      state.screen = 'ending';
+      saveState();
+      render();
+      if (state.badges.length >= 3 && !state.fastMode) {
+        startFireworks();
+      }
+    }
+
+    function renderEnding() {
+      const isHidden = state.badges.length >= 3;
+      const bItems = state.s1Tray.map(id => GAME_CONFIG.breakfastFoods.find(f => f.id === id)).filter(Boolean);
+      const dItems = state.dinnerPath === 'home'
+        ? state.homeTray.map(id => GAME_CONFIG.homeFoods.find(f => f.id === id)).filter(Boolean)
+        : state.storeCart.map(id => GAME_CONFIG.storeFoods.find(f => f.id === id)).filter(Boolean);
+
+      return `
+        <div class="hero-card" style="border-color:${isHidden ? '#fbbf24' : '#93c5fd'};">
+          <div class="hero-tag" style="background:${isHidden ? '#fef3c7' : '#dbeafe'}; color:${isHidden ? '#92400e' : '#1d4ed8'};">
+            ${isHidden ? '👑 HIDDEN ENDING · 배지 3종 올클리어!' : '🏅 NORMAL ENDING · 건강한 하루 완성!'}
+          </div>
+          <div style="font-size:4rem; margin:8px 0;">${isHidden ? '🎆🏆🎉' : '🌟🍱👏'}</div>
+          <h1 class="hero-title">${isHidden ? '전설의 식생활 마스터!' : '건강한 하루 설계자!'}</h1>
+          <p class="hero-sub">
+            ${isHidden
+              ? '모든 건강 방해 몬스터를 물리치고 3개의 배지를 모두 모았습니다! 중학교에서도 스스로 건강을 지킬 준비 완료!'
+              : '아침과 저녁 미션을 멋지게 완수했습니다! (배지 3종을 모두 모으면 히든 엔딩이 열려요)'}
+          </p>
+
+          <!-- 획득 배지 -->
+          <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:18px;">
+            ${Object.values(GAME_CONFIG.badges).map(b => {
+              const earned = state.badges.includes(b.id);
+              return `
+                <div style="padding:10px 16px; border-radius:14px; border:2px solid ${earned ? '#f59e0b' : '#cbd5e1'}; background:${earned ? '#fffbeb' : '#f8fafc'}; font-weight:800;">
+                  ${b.icon} ${b.name} ${earned ? '✅' : '(미획득)'}
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- 오늘 내가 완성한 하루 식단 요약 -->
+          <div class="story-box">
+            <h3 style="margin-top:0;">📋 오늘 내가 완성한 하루 식단 요약</h3>
+            <p><strong>🌅 아침 (아침밥 챌린지):</strong> ${bItems.map(i => `${i.emoji}${i.name}`).join(', ') || '기록 없음'}</p>
+            <p><strong>🏫 점심 (학교급식):</strong> 균형 잡힌 학교급식 완식!</p>
+            <p style="margin-bottom:0;"><strong>🌙 저녁 (${state.dinnerPath === 'home' ? '집밥 챌린지' : '편의점 서바이벌'}):</strong> ${dItems.map(i => `${i.emoji}${i.name}`).join(', ') || '기록 없음'}</p>
+          </div>
+
+          <!-- 실천 다짐 선택지 -->
+          <div class="story-box" style="background:#f0fdf4; border-color:#86efac;">
+            <h3 style="margin-top:0; color:#166534;">✍️ 중1이 되는 나의 식생활 실천 다짐 선택하기</h3>
+            <div class="pledge-grid">
+              ${GAME_CONFIG.pledges.map(p => `
+                <button class="pledge-btn ${state.selectedPledge === p ? 'selected' : ''}" onclick="selectPledge('${p}')">
+                  ${state.selectedPledge === p ? '✅ ' : '⬜ '} ${p}
+                </button>
+              `).join('')}
+            </div>
+            ${state.selectedPledge ? `
+              <div style="margin-top:12px; padding:12px; background:#fff; border-radius:12px; font-weight:800; color:#065f46; text-align:center;">
+                🎉 나의 다짐 확정: "${state.selectedPledge}"
+              </div>
+            ` : ''}
+          </div>
+
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px;">
+            <button class="btn btn-primary" onclick="resetGame()">🔄 다른 경로로 다시 플레이하기</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectPledge(text) {
+      SoundFX.play('win');
+      state.selectedPledge = text;
+      saveState();
+      render();
+    }
+
+    /**
+     * =========================================================================
+     * [모달 & 히든 엔딩 폭죽 애니메이션]
+     * =========================================================================
+     */
+    function showModal(html) {
+      document.getElementById('modalRoot').innerHTML = `
+        <div class="modal-backdrop" onclick="if(event.target===this) closeModal()">
+          <div class="modal-box">${html}</div>
+        </div>
+      `;
+    }
+
+    function closeModal() {
+      document.getElementById('modalRoot').innerHTML = '';
+    }
+
+    let fwInterval = null;
+    function startFireworks() {
+      const canvas = document.getElementById('fireworksCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let particles = [];
+
+      function createBurst() {
+        const x = Math.random() * canvas.width * 0.8 + canvas.width * 0.1;
+        const y = Math.random() * canvas.height * 0.4 + canvas.height * 0.1;
+        const colors = ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        for (let i = 0; i < 36; i++) {
+          const angle = (Math.PI * 2 * i) / 36;
+          const speed = Math.random() * 4 + 2;
+          particles.push({
+            x, y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            alpha: 1,
+            color
+          });
+        }
+      }
+
+      createBurst();
+      fwInterval = setInterval(createBurst, 850);
+
+      function loop() {
+        if (!fwInterval) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.06;
+          p.alpha -= 0.015;
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        particles = particles.filter(p => p.alpha > 0);
+        requestAnimationFrame(loop);
+      }
+      loop();
+    }
+
+    function stopFireworks() {
+      if (fwInterval) {
+        clearInterval(fwInterval);
+        fwInterval = null;
+      }
+      const canvas = document.getElementById('fireworksCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
+    // 초기 실행
+    render();
+  </script>
+</body>
+</html>
